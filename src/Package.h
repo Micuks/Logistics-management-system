@@ -26,7 +26,7 @@ public:
     string getRname() { return rname; }
     string getDescription() { return description; }
     int getFee() { return fee; }
-    bool canSend(int pac) { return pac >= fee; }
+    bool canSend(int wallet) { return wallet >= fee; }
     bool canDel() { return state == "signed"; }
     bool match(const string &s) const;
     void print() const;
