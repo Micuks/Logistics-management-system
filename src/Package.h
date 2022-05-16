@@ -27,7 +27,7 @@ public:
     string getDescription() { return description; }
     int getFee() { return fee; }
     bool canSend(int pac) { return pac >= fee; }
-    bool canDel() { return state == "signed"};
+    bool canDel() { return state == "signed"; }
     bool match(const string &s) const;
     void print() const;
     friend istream &operator >> (istream &in, BasePackage &bp);
