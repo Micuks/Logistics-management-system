@@ -3,10 +3,6 @@
 
 #include <bits/stdc++.h>
 #include "History.h"
-
-#define BH BaseHistory
-#define HL HistoryList
-
 using namespace std;
 
 class BasePackage {
@@ -35,21 +31,21 @@ public:
 };
 
 class Packet: public BasePackage {
-    HL sendReq;
-    HL sendHis;
-    HL recvReq;
-    HL recvHis;
+    HistoryList sendReq;
+    HistoryList sendHis;
+    HistoryList recvReq;
+    HistoryList recvHis;
 public:
     // using BasePackage::BasePackage;
     BasePackage getBase() const { return BasePackage(pid, pname, state, stime, rtime, sname, rname, description); }
-    void reqSend(const BH &bh);
-    void agrSend(const BH &bh);
-    void canSend(const BH &bh);
-    void refSend(const BH &bh);
-    void reqRecv(const BH &bh);
-    void agrRecv(const BH &bh);
-    void canRecv(const BH &bh);
-    void refRecv(const BH &bh);
+    void reqSend(const BaseHistory &bh);
+    void agrSend(const BaseHistory &bh);
+    void canSend(const BaseHistory &bh);
+    void refSend(const BaseHistory &bh);
+    void reqRecv(const BaseHistory &bh);
+    void agrRecv(const BaseHistory &bh);
+    void canRecv(const BaseHistory &bh);
+    void refRecv(const BaseHistory &bh);
     int printSendHis() const;
     int printSendReq() const;
     int printRecvHis() const;

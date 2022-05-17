@@ -5,9 +5,6 @@
 #include "History.h"
 using namespace std;
 
-#define BH BaseHistory
-#define HL HistoryList
-
 class BaseUser {
 protected:
     string uid, uname;
@@ -27,10 +24,10 @@ public:
 
 class User: public BaseUser {
     string upasswd;
-    HL sendHis;
-    HL sendReq;
-    HL recvHis;
-    HL recvReq;
+    HistoryList sendHis;
+    HistoryList sendReq;
+    HistoryList recvHis;
+    HistoryList recvReq;
 public:
     User(){}
     User(string _uid, string _uname, string _upasswd, int _wallet)
@@ -38,14 +35,14 @@ public:
     BaseUser getBase () const { return BaseUser(uid, uname, wallet); }
     bool upasswdMatch(const string &s) const { return upasswd == s; }
     void changeUpasswd(const string &s) { upasswd = s; }
-    void reqSend(const BH &bh);
-    void agrSend(const BH &bh);
-    void canSend(const BH &bh);
-    void refSend(const BH &bh);
-    void reqRecv(const BH &bh);
-    void agrRecv(const BH &bh);
-    void canSend(const BH &bh);
-    void refSend(const BH &bh);
+    void reqSend(const BaseHistory &bh);
+    void agrSend(const BaseHistory &bh);
+    void canSend(const BaseHistory &bh);
+    void refSend(const BaseHistory &bh);
+    void reqRecv(const BaseHistory &bh);
+    void agrRecv(const BaseHistory &bh);
+    void canSend(const BaseHistory &bh);
+    void refSend(const BaseHistory &bh);
     int printSendReq() const;
     int printSendHis() const;
     int printRecvReq() const;
@@ -74,6 +71,16 @@ public:
     void schUser(const string &s) const;
     friend istream &operator >> (istream &in, UserList &ul);
     friend ostream &operator << (ostream &out, const UserList &ul);
+};
+
+class Manager: public BaseUser {
+    string mpasswd;
+public:
+    Manager(){}
+    Manager(string _mid, string _mname, string _mpasswd, int _wallet)
+        :BaseUser(_mid, _mname, _wallet) { mpasswd = _mpasswd; }
+    bool mpasswdMatch(const string &s) { return mpasswd == s; }
+    void changeMpasswd(const string &s) { mpasswd = s; }
 };
 
 #endif
