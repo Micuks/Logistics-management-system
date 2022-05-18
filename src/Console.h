@@ -10,9 +10,9 @@ public:
     template <typename T> void outFile(const string &s, T &t);
     void mkDir(const string &s);
     void rmDir(const string &s);
-    string bDir(const string &s);
-    string rDir(const string &s);
-    string hDir(const string &s);
+    string pacDir(const string &s);
+    string usrDir(const string &s);
+    string hisDir(const string &s);
 };
 
 template <typename T> void Console::inFile(const string &s, T &t) {

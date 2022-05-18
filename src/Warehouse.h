@@ -18,14 +18,14 @@ class Warehouse {
         HistoryList sendReq;
         HistoryList recvReq;
         Data() {
-            con.inFile("data/packerList", pl);
+            con.inFile("data/packageList", pl);
             con.inFile("data/userList", ul);
             con.inFile("data/historyList", hl);
             con.inFile("data/sendReq", sendReq);
             con.inFile("data/recvReq", recvReq);
         }
         string getHis() const { return "H"+to_string(5760000000+hl.size()); }
-        void outPList() const { con.outFile("data/packetList", pl); }
+        void outPList() const { con.outFile("data/packageList", pl); }
         void outUList() const { con.outFile("data/userList", ul); }
         void outSReq() const { con.outFile("data/sendReq", sendReq); }
         void outRReq() const { con.outFile("data/recvReq", recvReq); }
@@ -35,16 +35,16 @@ public:
         Data *data;
     public:
         Operation(Data *_data):data(_data){}
-        int printPacket() const;
+        int printPackage() const;
         int printUser() const;
         int printHistory() const;
-        string printPacket(const int &num) const;
-        string printUser(const int &num) const;
-        string printHistory(const int &num) const;
-        void printPacket(const string &pid) const;
+        string printPackage(const int &idx) const;
+        string printUser(const int &idx) const;
+        string printHistory(const int &idx) const;
+        void printPackage(const string &pid) const;
         void printUser(const string &uid) const;
         void printHistory(const string &hid) const;
-        void schPacket(const string &s) const;
+        void schPackage(const string &s) const;
         bool pidExist(const string &pid) const;
         bool uidExist(const string &uid) const;
     } op;
@@ -56,14 +56,14 @@ public:
             // con.inFile("data/managerPasswd", mpasswd);
         }
         // void outMPasswd() const { con.outFile("data/managerPasswd", mpasswd); }
-        void addPacket(const string &pid, const int &num) const;
-        void addPacket(const Packet &p) const;
+        void addPackage(const string &pid, const int &num) const;
+        void addPackage(const Packet &p) const;
         void addUser(const User &u) const;
-        bool canDelPkt(const string &pid) const;
+        bool canDelPkg(const string &pid) const;
         bool canDelUsr(const string &uid) const;
-        bool canDelPkt(const int &num) const;
+        bool canDelPkg(const int &num) const;
         bool canDelUsr(const int &num) const;
-        void delPacket(const string &pid) const;
+        void delPackage(const string &pid) const;
         void delUser(const string &uid) const;
         void agrSend(const string &pid) const;
         void refSend(const string &pid) const;

@@ -52,7 +52,7 @@ public:
     int print() const;
     string print(const int &idx) const;
     void print(const string &pid) const;
-    void schPacket(const string &s) const;
+    void schPackage(const string &s) const;
     friend istream &operator >> (istream &in, PackageList &pl);
     friend ostream &operator << (ostream &out, const PackageList &pl);
 };
