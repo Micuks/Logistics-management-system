@@ -55,8 +55,3 @@ bool Warehouse::Operation::pidExist(const string &pid) const {
 bool Warehouse::Operation::uidExist(const string &uid) const {
     return data->ul.uidExist(uid);
 }
-
-//Warehouse::ManagerOperation
-void Warehouse::ManagerOperation::addPackage(const string &pid, const int &num) const {
-    
-}

@@ -26,17 +26,17 @@ public:
     friend ostream &operator << (ostream &out, const BasePackage &bp);
 };
 
-class Packet: public BasePackage {
+class Package: public BasePackage {
     HistoryList pacHis;
 public:
     // using BasePackage::BasePackage;
     BasePackage getBase() const { return BasePackage(pid, pname, state, description, fee); }
-    void reqSend(const BaseHistory &bp);
-    void reqRecv(const BaseHistory &bp);
+    void reqSend(const BaseHistory &bh);
+    void reqRecv(const BaseHistory &bh);
     int printPacHis() const;
     string printPacHis(const int &idx) const;
-    friend istream &operator >> (istream &in, Packet &p);
-    friend ostream &operator << (ostream &out, const Packet &p);
+    friend istream &operator >> (istream &in, Package &p);
+    friend ostream &operator << (ostream &out, const Package &p);
 };
 
 class PackageList {

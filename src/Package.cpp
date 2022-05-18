@@ -23,30 +23,30 @@ ostream &operator << (ostream &out, const BasePackage &bp) {
     return out;
 }
 
-//Packet
-void Packet::reqSend(const BaseHistory &bh) {
+//Package
+void Package::reqSend(const BaseHistory &bh) {
     pacHis.add(bh);
 }
 
-void Packet::reqRecv(const BaseHistory &bh) {
+void Package::reqRecv(const BaseHistory &bh) {
     pacHis.add(bh);
 }
 
-int Packet::printPacHis() const {
+int Package::printPacHis() const {
     return pacHis.print();
 }
 
-string Packet::printPacHis(const int &idx) const {
+string Package::printPacHis(const int &idx) const {
     return pacHis.print(idx);
 }
 
-istream &operator >> (istream &in, Packet &p) {
+istream &operator >> (istream &in, Package &p) {
     in >> p.pid >> p.pname >> p.state >> p.fee >> p.description;
     in >> p.pacHis;
     return in;
 }
 
-ostream &operator << (ostream &out, const Packet &p) {
+ostream &operator << (ostream &out, const Package &p) {
     out << p.pid << " " << p.pname << " " << p.state << " " << p.fee << " "
         << p.description << endl;
     out << p.pacHis;

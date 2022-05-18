@@ -15,20 +15,15 @@ class Warehouse {
         PackageList pl;
         UserList ul;
         HistoryList hl;
-        HistoryList sendReq;
-        HistoryList recvReq;
         Data() {
             con.inFile("data/packageList", pl);
             con.inFile("data/userList", ul);
             con.inFile("data/historyList", hl);
-            con.inFile("data/sendReq", sendReq);
-            con.inFile("data/recvReq", recvReq);
         }
         string getHis() const { return "H"+to_string(5760000000+hl.size()); }
         void outPList() const { con.outFile("data/packageList", pl); }
         void outUList() const { con.outFile("data/userList", ul); }
-        void outSReq() const { con.outFile("data/sendReq", sendReq); }
-        void outRReq() const { con.outFile("data/recvReq", recvReq); }
+        void outHList() const { con.outFile("data/historyList", hl); }
     } data;
 public:
     class Operation {
@@ -56,24 +51,10 @@ public:
             // con.inFile("data/managerPasswd", mpasswd);
         }
         // void outMPasswd() const { con.outFile("data/managerPasswd", mpasswd); }
-        void addPackage(const string &pid, const int &num) const;
-        void addPackage(const Packet &p) const;
         void addUser(const User &u) const;
-        bool canDelPkg(const string &pid) const;
-        bool canDelUsr(const string &uid) const;
-        bool canDelPkg(const int &num) const;
-        bool canDelUsr(const int &num) const;
         void delPackage(const string &pid) const;
         void delUser(const string &uid) const;
         void agrSend(const string &pid) const;
-        void refSend(const string &pid) const;
-        void agrRecv(const string &pid) const;
-        void refRecv(const string &pid) const;
-        int printSendReq() const;
-        int printRecvReq() const;
-        string printSendReq(const int &num) const;
-        string printRecvReq(const int &num) const;
-        bool canSend(const string &pid) const; // pid? hid?
         bool mpasswdMatch(const string &s) { return m.mpasswdMatch(s); }
         void changeMPasswd(const string &s);
         void schUser(const string &s) const;
@@ -84,22 +65,16 @@ public:
         Data *data;
         string uid, up;
         User u;
-        string addHistory(const string &pid) const; // 发送pid包裹并返回hid
+        string addHistory(const string &pid, const string &rid, const int &fee) const; // 发送pid包裹并返回hid
     public:
         UserOperation(Data *_data):data(_data){}
         void setUser(const string &_uid);
-        void reqSend(const string &pid);
-        void canSend(const string &pid);
+        void reqSend(const string &pid, const string &rid, const int &fee);
         void reqRecv(const string &pid);
-        void canRecv(const string &pid);
         int printSendHis() const;
-        int printSendReq() const;
         int printRecvHis() const;
-        int printRecvReq() const;
         string printSendHis(const int &num) const;
-        string printSendReq(const int &num) const;
         string printRecvHis(const int &num) const;
-        string printRecvReq(const int &num) const;
         bool upasswdMatch(const string &s) const { return u.upasswdMatch(s); };
         void changeUpasswd(const string &s);
     } uop;
