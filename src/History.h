@@ -54,7 +54,7 @@ public:
     void print(const string &hid) const;
     void schHistory(const string &s) const;
     friend istream &operator >> (istream &in, HistoryList &hl);
-    friend ostream &operator << (ostream &out, HistoryList &hl);
+    friend ostream &operator << (ostream &out, const HistoryList &hl);
 };
 
 #endif

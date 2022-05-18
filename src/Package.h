@@ -7,23 +7,19 @@ using namespace std;
 
 class BasePackage {
 protected:
-    string pid, pname, state, stime, rtime, sname, rname, description;
+    string pid, pname, description, state;
     int fee = 15;
 public:
     BasePackage(){}
-    BasePackage(string _pid, string _pname, string _state = "无", string _stime = "无", string _rtime = "无", string _sname = "无", string _rname = "无", string _desc = "无")
-        :pid(_pid), pname(_pname), state(_state), stime(_stime), rtime(_rtime), sname(_sname), rname(_rname), description(_desc){}
-    string getPid(){ return pid; }
-    string getPname() { return pname; }
-    string getState() { return state; }
-    string getStime() { return stime; }
-    string getRtime() { return rtime; }
-    string getSname() { return sname; }
-    string getRname() { return rname; }
-    string getDescription() { return description; }
-    int getFee() { return fee; }
-    bool canSend(int wallet) { return wallet >= fee; }
-    bool canDel() { return state == "signed"; }
+    BasePackage(string _pid, string _pname, string _state, string _description, int _fee)
+        :pid(_pid), pname(_pname), state(_state), description(_description), fee(_fee) {};
+    string getPid() const { return pid; }
+    string getPname() const { return pname; }
+    string getState() const { return state; }
+    string getDescription() const { return description; }
+    int getFee() const { return fee; }
+    bool canSend(int wallet) const { return wallet >= fee; }
+    bool canDel() const { return state == "signed"; }
     bool match(const string &s) const;
     void print() const;
     friend istream &operator >> (istream &in, BasePackage &bp);
@@ -31,45 +27,30 @@ public:
 };
 
 class Packet: public BasePackage {
-    HistoryList sendReq;
-    HistoryList sendHis;
-    HistoryList recvReq;
-    HistoryList recvHis;
+    HistoryList pacHis;
 public:
     // using BasePackage::BasePackage;
-    BasePackage getBase() const { return BasePackage(pid, pname, state, stime, rtime, sname, rname, description); }
-    void reqSend(const BaseHistory &bh);
-    void agrSend(const BaseHistory &bh);
-    void canSend(const BaseHistory &bh);
-    void refSend(const BaseHistory &bh);
-    void reqRecv(const BaseHistory &bh);
-    void agrRecv(const BaseHistory &bh);
-    void canRecv(const BaseHistory &bh);
-    void refRecv(const BaseHistory &bh);
-    int printSendHis() const;
-    int printSendReq() const;
-    int printRecvHis() const;
-    int printRecvReq() const; // 输出全部历史记录并返回数量
-    string showSendHis(const int &idx) const;
-    string showSendReq(const int &idx) const;
-    string showRecvHis(const int &idx) const;
-    string showRecvReq(const int &idx) const; // 输出编号idx的历史记录并返回hid
+    BasePackage getBase() const { return BasePackage(pid, pname, state, description, fee); }
+    void reqSend(const BaseHistory &bp);
+    void reqRecv(const BaseHistory &bp);
+    int printPacHis() const;
+    string printPacHis(const int &idx) const;
     friend istream &operator >> (istream &in, Packet &p);
     friend ostream &operator << (ostream &out, const Packet &p);
 };
 
 class PackageList {
-    vector <BasePackage> bp;
+    vector <BasePackage> pl;
 public:
     BasePackage &operator [] (const string &pid);
     BasePackage &operator [] (const int &num);
-    int size() const { return bp.size(); }
+    int size() const { return pl.size(); }
     bool pidExist(const string &pid) const;
     void add(const BasePackage &bp);
     void del(const BasePackage &bp);
     void del(const string &pid);
     int print() const;
-    string print(const int &num) const;
+    string print(const int &idx) const;
     void print(const string &pid) const;
     void schPacket(const string &s) const;
     friend istream &operator >> (istream &in, PackageList &pl);
