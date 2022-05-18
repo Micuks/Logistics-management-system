@@ -140,7 +140,7 @@ istream &operator >> (istream &in, HistoryList &hl) {
 ostream &operator << (ostream &out, const HistoryList &hl) {
     out << hl.size() << endl;
     for(int i = 0; i < hl.size(); i++) {
-        out << hl[i];
+        out << hl.hl[i];
     }
     return out;
 }

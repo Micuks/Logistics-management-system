@@ -54,7 +54,7 @@ public:
     void print(const string &pid) const;
     void schPacket(const string &s) const;
     friend istream &operator >> (istream &in, PackageList &pl);
-    friend ostream &operator << (ostream &out, PackageList &pl);
+    friend ostream &operator << (ostream &out, const PackageList &pl);
 };
 
 #endif

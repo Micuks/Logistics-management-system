@@ -138,10 +138,10 @@ istream &operator >> (istream &in, PackageList &pl) {
     return in;
 }
 
-ostream &operator << (ostream &out, PackageList &pl) {
+ostream &operator << (ostream &out, const PackageList &pl) {
     out << pl.size() << endl;
     for(int i = 0; i < pl.size(); i++) {
-        out << pl[i];
+        out << pl.pl[i];
     }
     return out;
 }

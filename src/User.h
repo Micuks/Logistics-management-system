@@ -17,6 +17,7 @@ public:
     string getUname() const { return uname; }
     int getWallet() const { return wallet; }
     bool canDel() const { return wallet == 0; }
+    bool match(const string &s) const;
     void print() const;
     friend istream &operator >> (istream &in, BaseUser &bu);
     friend ostream &operator << (ostream &out, const BaseUser &bu);
@@ -25,9 +26,7 @@ public:
 class User: public BaseUser {
     string upasswd;
     HistoryList sendHis;
-    HistoryList sendReq;
     HistoryList recvHis;
-    HistoryList recvReq;
 public:
     User(){}
     User(string _uid, string _uname, string _upasswd, int _wallet)
@@ -36,31 +35,21 @@ public:
     bool upasswdMatch(const string &s) const { return upasswd == s; }
     void changeUpasswd(const string &s) { upasswd = s; }
     void reqSend(const BaseHistory &bh);
-    void agrSend(const BaseHistory &bh);
-    void canSend(const BaseHistory &bh);
-    void refSend(const BaseHistory &bh);
     void reqRecv(const BaseHistory &bh);
-    void agrRecv(const BaseHistory &bh);
-    void canSend(const BaseHistory &bh);
-    void refSend(const BaseHistory &bh);
-    int printSendReq() const;
     int printSendHis() const;
-    int printRecvReq() const;
     int printRecvHis() const; // 打印全部的历史记录, 返回历史记录条数
-    string printSendReq(const int &idx) const;
     string printSendHis(const int &idx) const;
-    string printRecvReq(const int &idx) const;
     string printRecvHis(const int &idx) const; // 打印序号idx的历史记录, 返回hid
     friend istream &operator >> (istream &in, User &u);
     friend ostream &operator << (ostream &out, const User &u);
 };
 
 class UserList {
-    vector <BaseUser> rl;
+    vector <BaseUser> ul;
 public:
-    BaseUser &operator [] (const string &uid);
-    BaseUser &operator [] (const int &idx);
-    int size() const { return rl.size(); }
+    BaseUser &operator [] (const string &uid) ;
+    BaseUser &operator [] (const int &idx) ;
+    int size() const { return ul.size(); }
     bool uidExist(const string &uid) const;
     void add(const BaseUser &bu);
     void del(const BaseUser &bu);
