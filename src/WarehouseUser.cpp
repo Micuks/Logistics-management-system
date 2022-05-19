@@ -32,6 +32,7 @@ string Warehouse::UserOperation::addPackage(const string &pname, const string &d
     con.outFile(p, bp);
     data->pl.add(bp);
     data->outPList();
+    return pid;
 }
 
 void Warehouse::UserOperation::setUser(const string &_uid) {

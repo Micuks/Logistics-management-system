@@ -36,7 +36,7 @@ void Menu::SubMenu::schPackage() const {
 //Menu
 void Menu::start() const {
     while(true) {
-        system("clear");
+        //system("clear");
         cout << "物流管理平台" << endl
             << "1. 用户入口" << endl
             << "2. 管理员入口" << endl

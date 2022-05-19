@@ -1,12 +1,28 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.16)
+project(logistics_management_system)
 
-project(logistics_business_system VERSION 1.0)
+set(CMAKE_CXX_STANDARD 14)
 
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_BUILD_TYPE Debug)
+include_directories(src)
 
-set(CMAKE_OBJCXX_STANDARD_REQUIRED ON)
-
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
-add_subdirectory(src)
+add_executable(logistics_management_system
+        src/main.cpp
+        src/Console.cpp
+        src/Console.h
+        src/History.cpp
+        src/History.h
+        src/Manager.cpp
+        src/ManagerMenu.cpp
+        src/Menu.cpp
+        src/Menu.h
+        src/Package.cpp
+        src/Package.h
+        src/User.cpp
+        src/User.h
+        src/UserMenu.cpp
+        src/Utils.cpp
+        src/Utils.h
+        src/Warehouse.cpp
+        src/Warehouse.h
+        src/WarehouseManager.cpp
+        src/WarehouseUser.cpp)

@@ -166,6 +166,24 @@ void Menu::UserMenu::recvPackage() const {
     }
 }
 
+void Menu::UserMenu::printSendHis() const {
+    system("clear");
+    uop->printSendHis();
+    cout << "输入任意字符返回上级菜单" << endl;
+    string s;
+    getline(cin, s);
+    return;
+}
+
+void Menu::UserMenu::printRecvHis() const {
+    system("clear");
+    uop->printRecvHis();
+    cout << "输入任意字符返回上级菜单" << endl;
+    string s;
+    getline(cin, s);
+    return;
+}
+
 void Menu::UserMenu::changeUpasswd() const {
     system("clear");
     string upasswd, r_upasswd;

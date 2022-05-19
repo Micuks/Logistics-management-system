@@ -72,6 +72,7 @@ public:
     Manager(){}
     Manager(string _mid, string _mname, string _mpasswd, int _wallet)
         :BaseUser(_mid, _mname, _wallet) { mpasswd = _mpasswd; }
+    string getMpasswd() const;
     bool mpasswdMatch(const string &s) { return mpasswd == s; }
     void changeMpasswd(const string &s) { mpasswd = s; }
     friend istream &operator >> (istream &in, Manager &m);

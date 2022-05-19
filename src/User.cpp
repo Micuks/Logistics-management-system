@@ -57,6 +57,14 @@ int User::printRecvHis() const {
     return recvHis.print();
 }
 
+string User::printSendHis(const int &idx) const {
+    return sendHis.print(idx);
+}
+
+string User::printRecvHis(const int &idx) const {
+    return recvHis.print(idx);
+}
+
 istream &operator >> (istream &in, User &u) {
     in >> u.uid >> u.uname >> u.upasswd >> u.wallet;
     return in;
@@ -148,7 +156,7 @@ istream &operator >> (istream &in, UserList &ul) {
 }
 
 ostream &operator << (ostream &out, const UserList &ul) {
-    out << ul.size();
+    out << ul.size() << endl;
     for(int i = 0; i < ul.size(); i++) {
         out << ul.ul[i];
     }
