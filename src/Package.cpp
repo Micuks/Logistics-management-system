@@ -35,16 +35,9 @@ void Package::finSend(const BaseHistory &bh) {
     pacHis.add(bh);
 }
 
-void Package::reqRecv(const BaseHistory &bh) {
-    state = "已签收";
-    pacHis.add(bh);
-}
+void Package::reqRecv(const BaseHistory &bh) { }
 
-void Package::finRecv(const BaseHistory &bh) {
-    state = "已签收";
-    pacHis.del(bh.getHid());
-    pacHis.add(bh);
-}
+void Package::finRecv(const BaseHistory &bh) { }
 
 int Package::printPacHis() const {
     return pacHis.print();

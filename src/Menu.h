@@ -12,8 +12,6 @@ class Menu {
         Warehouse *wh;
     protected:
         Warehouse::Operation *op;
-        void printPackage() const;
-        void printUser() const;
         void schPackage() const;
     public:
         SubMenu(Warehouse *_wh):wh(_wh), op(&(_wh->op)) {}
@@ -25,6 +23,8 @@ class Menu {
         void login() const;
     private:
         void start() const;
+        void printSendHis() const;
+        void printRecvHis() const;
         void sendPackage() const;
         void recvPackage() const;
         void changeUpasswd() const;
@@ -36,9 +36,11 @@ class Menu {
         void login() const;
     private:
         void start() const;
-        void addPackage() const;
+        void printPackage() const;
+        void printUser() const;
+        void printHistory() const;
         void addUser() const;
-        void delPackage() const;
+        // void delPackage() const;
         void delUser() const;
         void changeMPasswd() const;
         void schUser() const;

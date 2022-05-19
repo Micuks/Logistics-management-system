@@ -23,6 +23,17 @@ string Warehouse::UserOperation::addHistory(const string &pid,
     return hid;
 }
 
+string Warehouse::UserOperation::addPackage(const string &pname, const string &description) const {
+    string pid = data->getPkg();
+    BasePackage bp(pid, pname, "待签收", description);
+    string p = con.pacDir(pid);
+    con.mkDir(p);
+    p+=pid;
+    con.outFile(p, bp);
+    data->pl.add(bp);
+    data->outPList();
+}
+
 void Warehouse::UserOperation::setUser(const string &_uid) {
     uid = _uid;
     up = con.usrDir(uid)+uid;
@@ -38,7 +49,7 @@ void Warehouse::UserOperation::addPackage(const Package &pkg) const {
     data->outPList();
 }
 
-void Warehouse::UserOperation::reqSend(const string &pid, const string &rid,
+string Warehouse::UserOperation::reqSend(const string &pid, const string &rid,
                                        const int &fee) {
     string hid = addHistory(pid, rid, fee);
     BaseHistory bh = data->hl[hid];
@@ -71,6 +82,8 @@ void Warehouse::UserOperation::reqSend(const string &pid, const string &rid,
     data->ul.del(uid);
     data->ul.add(u.getBase());
     data->outUList();
+
+    return hid;
 }
 
 void Warehouse::UserOperation::reqRecv(const string &hid) {
@@ -183,6 +196,14 @@ void Warehouse::UserOperation::finRecv(const string &hid) {
     data->ul.del(uid);
     data->ul.add(u.getBase());
     data->outUList();
+}
+
+string Warehouse::UserOperation::schSendHis(const string &pid) {
+    return u.schSendHis(pid);
+}
+
+string Warehouse::UserOperation::schRecvHis(const string &pid) {
+    return u.schRecvHis(pid);
 }
 
 int Warehouse::UserOperation::printSendHis() const {

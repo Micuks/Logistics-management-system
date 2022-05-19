@@ -138,6 +138,14 @@ void HistoryList::schHistory(const string &s) const {
     }
 }
 
+string HistoryList::schPkgHis(const string &pid) const {
+    for(int i = 0; i < hl.size(); i++) {
+        if(hl[i].getPid() == pid)
+            return hl[i].getHid();
+    }
+    return "-1";
+}
+
 istream &operator >> (istream &in, HistoryList &hl) {
     int num;
     in >> num;

@@ -5,23 +5,6 @@
 using namespace std;
 
 //SubMenu
-void Menu::SubMenu::printPackage() const {
-    system("clear");
-    op->printPackage();
-    cout << "输入任意字符返回上级菜单" << endl;
-    string s;
-    getline(cin, s);
-    return;
-}
-
-void Menu::SubMenu::printUser() const {
-    system("clear");
-    op->printUser();
-    cout << "输入任意字符返回上级菜单" << endl;
-    string s;
-    getline(cin, s);
-    return;
-}
 
 void Menu::SubMenu::schPackage() const {
     while(true) {

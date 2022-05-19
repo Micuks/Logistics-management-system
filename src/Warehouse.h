@@ -21,6 +21,7 @@ class Warehouse {
             con.inFile("data/historyList", hl);
         }
         string getHis() const { return "H"+to_string(5760000000+hl.size()); }
+        string getPkg() const { return "P"+to_string(0000000000+pl.size()); }
         void outPList() const { con.outFile("data/packageList", pl); }
         void outUList() const { con.outFile("data/userList", ul); }
         void outHList() const { con.outFile("data/historyList", hl); }
@@ -68,9 +69,9 @@ public:
     public:
         UserOperation(Data *_data):data(_data){}
         void setUser(const string &_uid);
-        void addPackage(const string &pid, const string &pname) const;
+        string addPackage(const string &pname, const string &description = "none") const;
         void addPackage(const Package &p) const;
-        void reqSend(const string &pid, const string &rid, const int &fee);
+        string reqSend(const string &pid, const string &rid, const int &fee);
         void finSend(const string &hid);
         void reqRecv(const string &hid);
         void finRecv(const string &hid);
@@ -78,6 +79,8 @@ public:
         int printRecvHis() const;
         string printSendHis(const int &num) const;
         string printRecvHis(const int &num) const;
+        string schSendHis(const string &pid);
+        string schRecvHis(const string &pid);
         bool upasswdMatch(const string &s) const { return u.upasswdMatch(s); };
         void changeUpasswd(const string &s);
     } uop;

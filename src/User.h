@@ -38,6 +38,8 @@ public:
     void finSend(const BaseHistory &bh);
     void reqRecv(const BaseHistory &bh);
     void finRecv(const BaseHistory &bh);
+    string schSendHis(const string &pid);
+    string schRecvHis(const string &pid);
     int printSendHis() const;
     int printRecvHis() const; // 打印全部的历史记录, 返回历史记录条数
     string printSendHis(const int &idx) const;

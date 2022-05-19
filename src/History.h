@@ -55,6 +55,7 @@ public:
     string print(const int &idx) const; // 将HistoryList[hid]打印, 返回其History
     void print(const string &hid) const;
     void schHistory(const string &s) const;
+    string schPkgHis(const string &pid) const;
     friend istream &operator >> (istream &in, HistoryList &hl);
     friend ostream &operator << (ostream &out, const HistoryList &hl);
 };

@@ -41,6 +41,14 @@ void User::finRecv(const BaseHistory &bh) {
     recvHis.add(bh);
 }
 
+string User::schSendHis(const string &pid) {
+    return sendHis.schPkgHis(pid);
+}
+
+string User::schRecvHis(const string &pid) {
+    return recvHis.schPkgHis(pid);
+}
+
 int User::printSendHis() const {
     return sendHis.print();
 }
