@@ -35,7 +35,19 @@ void History::reqSend() {
     stime = t;
 }
 
+void History::finSend() {
+    string t = getTime();
+    state = "已签收";
+    rtime = t;
+}
+
 void History::reqRecv() {
+    string t = getTime();
+    state = "待签收";
+    stime = t;
+}
+
+void History::finRecv() {
     string t = getTime();
     state = "已签收";
     rtime = t;

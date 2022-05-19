@@ -35,7 +35,9 @@ public:
     using BaseHistory::BaseHistory;
     BaseHistory getBase() const { return BaseHistory(hid, pid, sid, rid, pname, sname, rname, state, stime, rtime); }
     void reqSend();
+    void finSend();
     void reqRecv();
+    void finRecv();
     friend istream &operator >> (istream &in, History &h);
     friend ostream &operator << (ostream &out, const History &h);
 };

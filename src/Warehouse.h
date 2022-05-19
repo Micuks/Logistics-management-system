@@ -45,16 +45,15 @@ public:
     } op;
     class ManagerOperation {
         Data *data;
+        string mp;
         Manager m;
     public:
-        ManagerOperation(Data *_data):data(_data) {
-            // con.inFile("data/managerPasswd", mpasswd);
-        }
-        // void outMPasswd() const { con.outFile("data/managerPasswd", mpasswd); }
+        ManagerOperation(Data *_data):data(_data) { setManager(); }
+        void setManager();
         void addUser(const User &u) const;
         void delPackage(const string &pid) const;
         void delUser(const string &uid) const;
-        void agrSend(const string &pid) const;
+        // void agrSend(const string &pid) const;
         bool mpasswdMatch(const string &s) { return m.mpasswdMatch(s); }
         void changeMPasswd(const string &s);
         void schUser(const string &s) const;
@@ -69,8 +68,12 @@ public:
     public:
         UserOperation(Data *_data):data(_data){}
         void setUser(const string &_uid);
+        void addPackage(const string &pid, const string &pname) const;
+        void addPackage(const Package &p) const;
         void reqSend(const string &pid, const string &rid, const int &fee);
-        void reqRecv(const string &pid);
+        void finSend(const string &hid);
+        void reqRecv(const string &hid);
+        void finRecv(const string &hid);
         int printSendHis() const;
         int printRecvHis() const;
         string printSendHis(const int &num) const;

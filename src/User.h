@@ -35,7 +35,9 @@ public:
     bool upasswdMatch(const string &s) const { return upasswd == s; }
     void changeUpasswd(const string &s) { upasswd = s; }
     void reqSend(const BaseHistory &bh);
+    void finSend(const BaseHistory &bh);
     void reqRecv(const BaseHistory &bh);
+    void finRecv(const BaseHistory &bh);
     int printSendHis() const;
     int printRecvHis() const; // 打印全部的历史记录, 返回历史记录条数
     string printSendHis(const int &idx) const;
@@ -70,6 +72,8 @@ public:
         :BaseUser(_mid, _mname, _wallet) { mpasswd = _mpasswd; }
     bool mpasswdMatch(const string &s) { return mpasswd == s; }
     void changeMpasswd(const string &s) { mpasswd = s; }
+    friend istream &operator >> (istream &in, Manager &m);
+    friend ostream &operator << (ostream &out, const Manager &m);
 };
 
 #endif

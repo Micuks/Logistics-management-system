@@ -11,7 +11,7 @@ protected:
     int fee = 15;
 public:
     BasePackage(){}
-    BasePackage(string _pid, string _pname, string _state, string _description, int _fee)
+    BasePackage(string _pid, string _pname, string _state = "待签收", string _description = "无", int _fee = 15)
         :pid(_pid), pname(_pname), state(_state), description(_description), fee(_fee) {};
     string getPid() const { return pid; }
     string getPname() const { return pname; }
@@ -32,7 +32,9 @@ public:
     // using BasePackage::BasePackage;
     BasePackage getBase() const { return BasePackage(pid, pname, state, description, fee); }
     void reqSend(const BaseHistory &bh);
+    void finSend(const BaseHistory &bh);
     void reqRecv(const BaseHistory &bh);
+    void finRecv(const BaseHistory &bh);
     int printPacHis() const;
     string printPacHis(const int &idx) const;
     friend istream &operator >> (istream &in, Package &p);

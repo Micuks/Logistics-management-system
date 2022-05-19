@@ -27,7 +27,17 @@ void User::reqSend(const BaseHistory &bh) {
     sendHis.add(bh);
 }
 
+void User::finSend(const BaseHistory &bh) {
+    sendHis.del(bh.getHid());
+    sendHis.add(bh);
+}
+
 void User::reqRecv(const BaseHistory &bh) {
+    recvHis.add(bh);
+}
+
+void User::finRecv(const BaseHistory &bh) {
+    recvHis.del(bh.getHid());
     recvHis.add(bh);
 }
 
