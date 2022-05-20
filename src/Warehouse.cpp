@@ -36,8 +36,8 @@ void Warehouse::Operation::printPackage(const string &pid) const {
     data->pl.print(pid);
 }
 
-void Warehouse::Operation::printUser(const string &uid) const {
-    data->ul.print(uid);
+void Warehouse::Operation::printUser(const string &userid) const {
+    data->ul.print(userid);
 }
 
 void Warehouse::Operation::printHistory(const string &hid) const {

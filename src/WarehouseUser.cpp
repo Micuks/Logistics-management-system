@@ -37,6 +37,7 @@ string Warehouse::UserOperation::addPackage(const string &pname, const string &d
 
 void Warehouse::UserOperation::setUser(const string &_uid) {
     uid = _uid;
+    u.initSRHis();
     up = con.usrDir(uid)+uid;
     con.inFile(up, u);
 }
@@ -76,7 +77,8 @@ string Warehouse::UserOperation::reqSend(const string &pid, const string &rid,
     data->hl.del(hid);
     data->hl.add(bh);
     data->outHList();
-    
+
+    data->pl.del(pid);
     data->pl.add(p.getBase());
     data->outPList();
     

@@ -10,7 +10,6 @@ string Manager::getMpasswd() const {
 
 istream &operator>>(istream &in, Manager &m) {
     in >> m.uid >> m.uname >> m.mpasswd >> m.wallet;
-    cout << m.mpasswd << endl;
     return in;
 }
 

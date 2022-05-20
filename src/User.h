@@ -32,6 +32,7 @@ public:
     User(string _uid, string _uname, string _upasswd, int _wallet)
         :BaseUser(_uid, _uname, _wallet) { upasswd = _upasswd; }
     BaseUser getBase () const { return BaseUser(uid, uname, wallet); }
+    void initSRHis() { sendHis.clear(); recvHis.clear(); }
     bool upasswdMatch(const string &s) const { return upasswd == s; }
     void changeUpasswd(const string &s) { upasswd = s; }
     void reqSend(const BaseHistory &bh);

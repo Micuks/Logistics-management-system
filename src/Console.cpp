@@ -15,16 +15,16 @@ void Console::rmDir(const string &s) {
 }
 
 string Console::pacDir(const string &s) {
-    string path = "data/package/"+s+"/";
+    string path = "data/pkgDir/"+s+"/";
     return path;
 }
 
 string Console::usrDir(const string &s) {
-    string path = "data/user/"+s+"/";
+    string path = "data/usrDir/"+s+"/";
     return path;
 }
 
 string Console::hisDir(const string &s) {
-    string path = "data/history/"+s+"/";
+    string path = "data/hisDir/"+s+"/";
     return path;
 }

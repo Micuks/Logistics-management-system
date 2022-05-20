@@ -66,12 +66,13 @@ string User::printRecvHis(const int &idx) const {
 }
 
 istream &operator >> (istream &in, User &u) {
-    in >> u.uid >> u.uname >> u.upasswd >> u.wallet;
+    in >> u.uid >> u.uname >> u.upasswd >> u.wallet >> u.sendHis >> u.recvHis;
     return in;
 }
 
 ostream &operator << (ostream &out, const User &u) {
-    out << u.uid << " " << u.uname << " " << u.upasswd << " " << u.wallet;
+    out << u.uid << " " << u.uname << " " << u.upasswd << " " << u.wallet << endl
+        << u.sendHis << u.recvHis << endl;
     return out;
 }
 
@@ -129,8 +130,10 @@ string UserList::print(const int &idx) const {
 
 void UserList::print(const string &uid) const {
     for(int i = 0; i < ul.size(); i++) {
-        ul[i].print();
-        return;
+        if(ul[i].getUid() == uid) {
+            ul[i].print();
+            return;
+        }
     }
 }
 

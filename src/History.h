@@ -48,6 +48,7 @@ public:
     BaseHistory &operator [] (const string &hid);
     BaseHistory &operator [] (const int &num);
     int size() const { return hl.size(); }
+    void clear() { hl.clear(); }
     void add(const BaseHistory &bh);
     void del(const BaseHistory &bh);
     void del(const string &hid);

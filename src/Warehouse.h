@@ -15,6 +15,8 @@ class Warehouse {
         PackageList pl;
         UserList ul;
         HistoryList hl;
+        HistoryList sendReq;
+        HistoryList recvReq;
         Data() {
             con.inFile("data/packageList", pl);
             con.inFile("data/userList", ul);
@@ -67,6 +69,7 @@ public:
         User u;
         string addHistory(const string &pid, const string &rid, const int &fee) const; // 发送pid包裹并返回hid
     public:
+        void initSRHis() const;
         UserOperation(Data *_data):data(_data){}
         void setUser(const string &_uid);
         string addPackage(const string &pname, const string &description = "none") const;

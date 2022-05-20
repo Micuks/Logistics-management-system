@@ -150,10 +150,6 @@ string HistoryList::schPkgHis(const string &pid) const {
 istream &operator >> (istream &in, HistoryList &hl) {
     int num;
     in >> num;
-    char tmp[256];
-    getcwd(tmp, 256);
-    cout << "Current working directory: " << tmp << endl;
-    cout << "hl.size = " << num << endl;
     while(num--) {
         BaseHistory bh;
         in >> bh;
