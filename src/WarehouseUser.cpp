@@ -62,6 +62,7 @@ int Warehouse::UserOperation::getWallet() const {
 
 void Warehouse::UserOperation::chargeWallet(const int &val) {
     u.chargeWallet(val);
+    con.outFile(up, u);
 }
 
 string Warehouse::UserOperation::reqSend(const string &pid, const string &rid,

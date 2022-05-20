@@ -4,6 +4,10 @@
 using namespace std;
 
 //Manager
+void Manager::chargeWallet(const int &val) {
+    wallet += val;
+}
+
 string Manager::getMpasswd() const {
     return mpasswd;
 }

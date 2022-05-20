@@ -106,9 +106,11 @@ void Menu::UserMenu::sendPackage() const {
         cout << "收件人信息如下" << endl;
         op->printUser(rid);
         
+        int fee = 15;
         if(!uop->billPackage(pid)) {
             cout << "余额不足以支付运费, 请充值" << endl;
         } else {
+            op->chargeMWallet(fee);
             string hid = uop->reqSend(pid, rid, 15);
             uop->reqRecv(hid);
             cout << "包裹发送完毕" << endl;

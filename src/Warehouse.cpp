@@ -8,6 +8,9 @@
 using namespace std;
 
 //Warehouse::Operation
+void Warehouse::Operation::chargeMWallet(const int &val) {
+    data->chargeMWallet(val);
+}
 int Warehouse::Operation::printPackage() const {
     return data->pl.print();
 }

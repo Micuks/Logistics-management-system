@@ -10,6 +10,10 @@ void Warehouse::ManagerOperation::setManager() {
     con.inFile(mp, m);
 }
 
+int Warehouse::ManagerOperation::getWallet() const {
+    return m.getWallet();
+}
+
 void Warehouse::ManagerOperation::addUser(const User &u) const {
     string p = con.usrDir(u.getUid());
     con.mkDir(p);
