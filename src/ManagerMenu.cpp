@@ -25,6 +25,8 @@ void Menu::ManagerMenu::login() const {
 void Menu::ManagerMenu::start() const {
     while(true) {
         system("clear");
+        mop->setManager();
+        cout << "当前余额为" << mop->getWallet() << endl;
         cout << "1. 查看所有用户" << endl
              << "2. 查看所有包裹" << endl
              << "3. 查看所有历史记录" << endl

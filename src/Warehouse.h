@@ -17,13 +17,18 @@ class Warehouse {
         HistoryList hl;
         HistoryList sendReq;
         HistoryList recvReq;
+        Manager m0;
         Data() {
+            con.inFile("data/manPasswd", m0);
             con.inFile("data/packageList", pl);
             con.inFile("data/userList", ul);
             con.inFile("data/historyList", hl);
         }
         string getHis() const { return "H"+to_string(5760000000+hl.size()); }
         string getPkg() const { return "P"+to_string(0000000000+pl.size()); }
+        void chargeMWallet(const int &val) {
+            m0.chargeWallet(val); con.outFile("data/manPasswd", m0);
+        };
         void outPList() const { con.outFile("data/packageList", pl); }
         void outUList() const { con.outFile("data/userList", ul); }
         void outHList() const { con.outFile("data/historyList", hl); }
@@ -33,6 +38,7 @@ public:
         Data *data;
     public:
         Operation(Data *_data):data(_data){}
+        void chargeMWallet(const int &val);
         int printPackage() const;
         int printUser() const;
         int printHistory() const;
@@ -57,6 +63,7 @@ public:
         void delPackage(const string &pid) const;
         void delUser(const string &uid) const;
         // void agrSend(const string &pid) const;
+        int getWallet() const;
         bool mpasswdMatch(const string &s) { return m.mpasswdMatch(s); }
         void changeMPasswd(const string &s);
         void schUser(const string &s) const;
@@ -72,9 +79,9 @@ public:
         void initSRHis() const;
         UserOperation(Data *_data):data(_data){}
         void setUser(const string &_uid);
-        bool billPackage(const string &pid);
         string addPackage(const string &pname, const string &description = "none") const;
         void addPackage(const Package &p) const;
+        bool billPackage(const string &pid);
         int getWallet() const;
         void chargeWallet(const int &val);
         string reqSend(const string &pid, const string &rid, const int &fee);
