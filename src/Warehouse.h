@@ -72,8 +72,11 @@ public:
         void initSRHis() const;
         UserOperation(Data *_data):data(_data){}
         void setUser(const string &_uid);
+        bool billPackage(const string &pid);
         string addPackage(const string &pname, const string &description = "none") const;
         void addPackage(const Package &p) const;
+        int getWallet() const;
+        void chargeWallet(const int &val);
         string reqSend(const string &pid, const string &rid, const int &fee);
         void finSend(const string &hid);
         void reqRecv(const string &hid);

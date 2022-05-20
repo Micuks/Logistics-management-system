@@ -42,6 +42,11 @@ void Warehouse::UserOperation::setUser(const string &_uid) {
     con.inFile(up, u);
 }
 
+bool Warehouse::UserOperation::billPackage(const string &pid) {
+    BasePackage bp = data->pl[pid];
+    return u.billPackage(bp.getFee());
+}
+
 void Warehouse::UserOperation::addPackage(const Package &pkg) const {
     string p = con.pacDir(pkg.getPid());
     con.mkDir(p);
@@ -49,6 +54,14 @@ void Warehouse::UserOperation::addPackage(const Package &pkg) const {
     con.outFile(p, pkg);
     data->pl.add(pkg.getBase());
     data->outPList();
+}
+
+int Warehouse::UserOperation::getWallet() const {
+    return u.getWallet();
+}
+
+void Warehouse::UserOperation::chargeWallet(const int &val) {
+    u.chargeWallet(val);
 }
 
 string Warehouse::UserOperation::reqSend(const string &pid, const string &rid,
