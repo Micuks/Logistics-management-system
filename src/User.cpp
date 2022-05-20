@@ -23,6 +23,18 @@ ostream &operator << (ostream &out, const BaseUser &bu) {
 }
 
 //User
+void User::chargeWallet(const int &val) {
+    wallet += val;
+}
+
+bool User::billPackage(const int &fee) {
+    if(wallet >= fee) {
+        wallet -= fee;
+        return true;
+    }
+    return false;
+}
+
 void User::reqSend(const BaseHistory &bh) {
     sendHis.add(bh);
 }

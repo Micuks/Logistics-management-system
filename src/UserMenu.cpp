@@ -41,31 +41,34 @@ void Menu::UserMenu::start() const {
              << "3. 搜索快递" << endl
              << "4. 打印所有已发快递" << endl
              << "5. 打印所有签收和待签收快递" << endl
-             << "6. 更改密码" << endl
-             << "7. 返回上级菜单" << endl
-             << "8. 退出系统" << endl;
+             << "6. 充值" << endl
+             << "7. 更改密码" << endl
+             << "8. 返回上级菜单" << endl
+             << "9. 退出系统" << endl;
             string s;
             while(true) {
                 getline(cin, s);
-                if(isPositive(s) && stoi(s) <= 8)
+                if(isPositive(s) && stoi(s) <= 9)
                     break;
                 cout << "输入内容错误, 请重新输入" << endl;
             }
-            if(s == "1")
+            if (s == "1")
                 sendPackage();
-            else if(s == "2")
+            else if (s == "2")
                 recvPackage();
-            else if(s == "3")
+            else if (s == "3")
                 schPackage();
-            else if(s == "4")
+            else if (s == "4")
                 printSendHis();
-            else if(s == "5")
+            else if (s == "5")
                 printRecvHis();
-            else if(s == "6")
+            else if (s == "6")
+                chargeWallet();
+            else if (s == "7")
                 changeUpasswd();
-            else if(s == "7")
+            else if (s == "8")
                 return;
-            else if(s == "8")
+            else
                 exit(0);
     }
 }
@@ -102,13 +105,19 @@ void Menu::UserMenu::sendPackage() const {
         
         cout << "收件人信息如下" << endl;
         op->printUser(rid);
-        string hid = uop->reqSend(pid, rid, 15);
-        uop->reqRecv(hid);
         
-        cout << "包裹发送完毕" << endl
-             << "1. 发送下一个包裹" << endl
+        if(!uop->billPackage(pid)) {
+            cout << "余额不足以支付运费, 请充值" << endl;
+        } else {
+            string hid = uop->reqSend(pid, rid, 15);
+            uop->reqRecv(hid);
+            cout << "包裹发送完毕" << endl;
+        }
+
+        cout << "1. 发送下一个包裹" << endl
              << "2. 返回上级菜单" << endl
              << "3. 退出系统" << endl;
+
         string s;
         while(true) {
             getline(cin, s);
@@ -182,6 +191,42 @@ void Menu::UserMenu::printRecvHis() const {
     string s;
     getline(cin, s);
     return;
+}
+
+void Menu::UserMenu::chargeWallet() const {
+    while(true) {
+        system("clear");
+        string s;
+        cout << "账户余额为 " << uop->getWallet() << ", 输入要充值的金额(输入-1返回上级菜单j)" << endl;
+        while(true) {
+            getline(cin, s);
+            if(s == "-1")
+                return;
+            if(isPositive(s) && stoi(s) <= INT_MAX)
+                break;
+            cout << "输入内容错误, 请重新输入" << endl;
+        }
+        uop->chargeWallet(stoi(s));
+
+        system("clear");
+        cout << "充值成功, 当前余额为" << uop->getWallet() << endl
+             << "1. 继续充值" << endl
+             << "2. 返回上一级菜单" << endl
+             << "3. 退出系统" << endl;
+        string k;
+        while(true) {
+            getline(cin, k);
+            if(isPositive(k) && stoi(k) <= 3)
+                break;
+            cout << "输入内容错误, 请重新输入" << endl;
+        }
+        if(k == "1")
+            continue;
+        else if (k == "2")
+            return;
+        else
+            exit(0);
+    }
 }
 
 void Menu::UserMenu::changeUpasswd() const {

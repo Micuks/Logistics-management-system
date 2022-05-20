@@ -27,6 +27,7 @@ class Menu {
         void printRecvHis() const;
         void sendPackage() const;
         void recvPackage() const;
+        void chargeWallet() const;
         void changeUpasswd() const;
     };
     class ManagerMenu:public SubMenu {

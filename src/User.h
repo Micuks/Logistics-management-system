@@ -35,6 +35,8 @@ public:
     void initSRHis() { sendHis.clear(); recvHis.clear(); }
     bool upasswdMatch(const string &s) const { return upasswd == s; }
     void changeUpasswd(const string &s) { upasswd = s; }
+    bool billPackage(const int &fee);
+    void chargeWallet(const int &val);
     void reqSend(const BaseHistory &bh);
     void finSend(const BaseHistory &bh);
     void reqRecv(const BaseHistory &bh);
