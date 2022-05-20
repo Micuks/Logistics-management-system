@@ -197,7 +197,7 @@ void Menu::UserMenu::chargeWallet() const {
     while(true) {
         system("clear");
         string s;
-        cout << "账户余额为 " << uop->getWallet() << ", 输入要充值的金额(输入-1返回上级菜单j)" << endl;
+        cout << "账户余额为 " << uop->getWallet() << ", 输入要充值的金额(输入-1返回上级菜单)" << endl;
         while(true) {
             getline(cin, s);
             if(s == "-1")

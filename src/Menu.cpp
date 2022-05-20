@@ -50,6 +50,7 @@ void Menu::start() const {
             um.login();
         if(s == "2")
             mm.login();
-        else exit(0);
+        else if(s == "3")
+            exit(0);
     }
 }

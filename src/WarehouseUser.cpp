@@ -57,7 +57,7 @@ void Warehouse::UserOperation::addPackage(const Package &pkg) const {
 }
 
 int Warehouse::UserOperation::getWallet() const {
-    u.getWallet();
+    return u.getWallet();
 }
 
 void Warehouse::UserOperation::chargeWallet(const int &val) {
