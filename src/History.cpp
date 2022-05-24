@@ -11,9 +11,9 @@ bool BaseHistory::match(const string &s) const {
 }
 
 void BaseHistory::print() const {
-    cout << hid << "\t" << pid << "\t" << pname << "\t" << sid << "\t" <<
-        sname << "\t" << stime << "\t" << rid << "\t" << rname << "\t" <<
-        rtime << "\t" << state << endl;
+    cout << hid << " " << pid << " " << pname << " " << sid << " " <<
+        sname << " " << stime << " " << rid << " " << rname << " " <<
+        rtime << " " << state << endl;
 }
 
 istream &operator >> (istream &in, BaseHistory &bh) {
@@ -106,9 +106,9 @@ void HistoryList::del(const string &hid) {
 }
 
 int HistoryList::print() const {
-    cout << "编号\t历史记录id\t包裹id\t包裹名\t包裹状态\t寄件用户id\t寄件用户姓名\t收件用户id\t收件用户姓名" << endl;
+    cout << "编号 历史记录id 包裹id 包裹名 寄方id 姓名 发送时间 收方id 姓名 签收时间 包裹状态" << endl;
     for(int i = 0; i < hl.size(); i++) {
-        cout << i+1 << "\t";
+        cout << i+1 << " ";
         hl[i].print();
     }
     return hl.size();
@@ -129,11 +129,11 @@ void HistoryList::print(const string &hid) const {
 }
 
 void HistoryList::schHistory(const string &s) const {
-    cout << "序号\t历史记录id\t包裹id\t包裹名\t包裹状态\t寄件用户id\t寄件用户姓名\t收件用户id\t收件用户姓名" << endl;
+    cout << "编号 历史记录id 包裹id 包裹名 寄件用户id 姓名 发送时间 收件用户id 姓名 签收时间 包裹状态" << endl;
     int cnt = 0;
     for(int i = 0; i < hl.size(); i++) {
         if(hl[i].match(s)) {
-            cout << ++cnt << "\t";
+            cout << ++cnt << " ";
             hl[i].print();
         }
     }
