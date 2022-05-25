@@ -61,9 +61,11 @@ class Package : public BasePackage {
         return fee;
     }
     void reqSend(const BaseHistory &bh);
-    void finSend(const BaseHistory &bh);
     void reqRecv(const BaseHistory &bh);
+    void finSend(const BaseHistory &bh);
     void finRecv(const BaseHistory &bh);
+    void reqColl(const BaseHistory &bh);
+    void finColl(const BaseHistory &bh);
     int printPacHis() const;
     string printPacHis(const int &idx) const;
     friend istream &operator>>(istream &in, Package &p);

@@ -41,6 +41,14 @@ void Package::reqRecv(const BaseHistory &bh) {}
 
 void Package::finRecv(const BaseHistory &bh) {}
 
+void Package::reqColl(const BaseHistory &bh) {}
+
+void Package::finColl(const BaseHistory &bh) {
+    state = "待签收";
+    pacHis.del(bh.getHid());
+    pacHis.add(bh);
+}
+
 int Package::printPacHis() const { return pacHis.print(); }
 
 string Package::printPacHis(const int &idx) const { return pacHis.print(idx); }

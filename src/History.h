@@ -47,9 +47,11 @@ class History : public BaseHistory {
                            stime, rtime, fee, unit_price, quantity);
     }
     void reqSend();
-    void finSend();
     void reqRecv();
+    void finSend();
     void finRecv();
+    void reqColl();
+    void finColl();
     friend istream &operator>>(istream &in, History &h);
     friend ostream &operator<<(ostream &out, const History &h);
 };

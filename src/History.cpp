@@ -56,6 +56,10 @@ void History::finRecv() {
     rtime = t;
 }
 
+void History::reqColl() {}
+
+void History::finColl() { state = "待签收"; }
+
 istream &operator>>(istream &in, History &bh) {
     in >> bh.hid >> bh.pid >> bh.sid >> bh.rid >> bh.pname >> bh.sname >>
         bh.rname >> bh.state >> bh.stime >> bh.rtime >> bh.fee >> bh.quantity >>

@@ -76,9 +76,13 @@ void Warehouse::ManagerOperation::reqColl(const string &hid,
     Courier c;
     con.inFile(cp, c);
 
-    string pid = bh.getPid();
-    string pp = con.pacDir(pid) + pid;
-    Package p;
-    con.inFile(pp, p);
+    string hp = con.hisDir(hid) + hid;
+    History h;
+    con.inFile(hp, h);
+    bh = h.getBase();
+
     c.reqColl(bh);
+    con.outFile(cp, c);
+
+    data->outPList();
 }

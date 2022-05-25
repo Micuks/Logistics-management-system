@@ -91,7 +91,6 @@ class Warehouse {
         void schHistory(const string &s) const;
 
         void reqColl(const string &hid, const string &cid) const;
-        void reqDist(const string &hid, const string &cid) const;
     } mop;
 
     class UserOperation {
@@ -101,7 +100,7 @@ class Warehouse {
         string addHistory(const string &pid, const string &rid,
                           const int &fee) const; // 发送pid包裹并返回hid
       public:
-        void initSRHis() const;
+        void initSRHis();
         UserOperation(Data *_data) : data(_data) {}
         void setUser(const string &_uid);
         string addPackage(const string &pname,
@@ -129,18 +128,14 @@ class Warehouse {
         Courier c;
 
       public:
-        void initCDHis() const;
+        void initColHis();
         CourierOperation(Data *_data) : data(_data){};
         void setCourier(const string _cid);
         void chargeWallet(const double &val);
         void finColl(const string &hid);
-        void finDist(const string &hid);
         int printCollHis() const;
-        int printDistHis() const;
         string printCollHis(const int &idx) const;
-        string printDistHis(const int &idx) const;
         string schCollHis(const string &pid) const;
-        string schDistHis(const string &pid) const;
         bool cpasswdMatch(const string &s) const { return c.cpasswdMatch(s); }
         void changeCpasswd(const string &s);
     } cop;

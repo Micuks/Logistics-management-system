@@ -105,7 +105,7 @@ class Courier : public BaseUser {
         cpasswd = _cpasswd;
     }
     BaseUser getBase() const { return BaseUser(uid, uname, wallet); }
-    void initCoHis() { collectHis.clear(); }
+    void initColHis() { collectHis.clear(); }
     bool cpasswdMatch(const string &s) const { return cpasswd == s; }
     void changeCpasswd(const string &s) { cpasswd = s; }
     void chargeWallet(const double &val) { wallet += val; }

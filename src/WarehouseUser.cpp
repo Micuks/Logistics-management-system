@@ -9,6 +9,8 @@ using namespace std;
 
 // Warehouse::UserOperation
 extern Console con;
+void Warehouse::UserOperation::initSRHis() { u.initSRHis(); }
+
 string Warehouse::UserOperation::addHistory(const string &pid,
                                             const string &rid,
                                             const int &fee) const {
@@ -46,7 +48,7 @@ void Warehouse::UserOperation::setUser(const string &_uid) {
 
 bool Warehouse::UserOperation::billPackage(const string &pid) {
     BasePackage bp = data->pl[pid];
-    return u.billPackage(bp.getFee());
+    return u.billPackage(bp.getPrice());
 }
 
 void Warehouse::UserOperation::addPackage(const Package &pkg) const {
@@ -60,7 +62,7 @@ void Warehouse::UserOperation::addPackage(const Package &pkg) const {
 
 int Warehouse::UserOperation::getWallet() const { return u.getWallet(); }
 
-void Warehouse::UserOperation::chargeWallet(const int &val) {
+void Warehouse::UserOperation::chargeWallet(const double &val) {
     u.chargeWallet(val);
     con.outFile(up, u);
 }
