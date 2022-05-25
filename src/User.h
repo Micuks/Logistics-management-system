@@ -97,7 +97,6 @@ class Manager : public BaseUser {
 class Courier : public BaseUser {
     string cpasswd;
     HistoryList collectHis;
-    HistoryList distribHis;
 
   public:
     Courier() {}
@@ -106,23 +105,15 @@ class Courier : public BaseUser {
         cpasswd = _cpasswd;
     }
     BaseUser getBase() const { return BaseUser(uid, uname, wallet); }
-    void initCDHis() {
-        collectHis.clear();
-        distribHis.clear();
-    }
+    void initCoHis() { collectHis.clear(); }
     bool cpasswdMatch(const string &s) const { return cpasswd == s; }
-    void changeMpasswd(const string &s) { cpasswd = s; }
+    void changeCpasswd(const string &s) { cpasswd = s; }
     void chargeWallet(const double &val) { wallet += val; }
     void reqColl(const BaseHistory &bh);
     void finColl(const BaseHistory &bh);
-    void reqDist(const BaseHistory &bh);
-    void finDist(const BaseHistory &bh);
     string schCollHis(const string &pid);
-    string schDistHis(const string &pid);
     int printCollHis() const;
-    int printDistHis() const;
     string printCollHis(const int &idx) const;
-    string printDistHis(const int &idx) const;
     friend istream &operator>>(istream &in, Courier &c);
     friend ostream &operator<<(ostream &out, const Courier &c);
 };

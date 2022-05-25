@@ -14,13 +14,14 @@ void BasePackage::print() const {
 }
 
 istream &operator>>(istream &in, BasePackage &bp) {
-    in >> bp.pid >> bp.pname >> bp.state >> bp.fee >> bp.description;
+    in >> bp.pid >> bp.pname >> bp.state >> bp.fee >> bp.quantity >>
+        bp.unit_price >> bp.description;
     return in;
 }
 
 ostream &operator<<(ostream &out, const BasePackage &bp) {
     out << bp.pid << " " << bp.pname << " " << bp.state << " " << bp.fee << " "
-        << bp.description << endl;
+        << bp.quantity << " " << bp.unit_price << " " << bp.description << endl;
     return out;
 }
 

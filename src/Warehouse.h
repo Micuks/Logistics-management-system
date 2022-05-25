@@ -53,15 +53,19 @@ class Warehouse {
         void chargeMWallet(const int &val);
         int printPackage() const;
         int printUser() const;
+        int printCourier() const;
         int printHistory() const;
         string printPackage(const int &idx) const;
         string printUser(const int &idx) const;
+        string printCourier(const int &idx) const;
         string printHistory(const int &idx) const;
         void printPackage(const string &pid) const;
         void printUser(const string &uid) const;
+        void printCourier(const string &uid) const;
         void printHistory(const string &hid) const;
         void schPackage(const string &s) const;
         bool pidExist(const string &pid) const;
+        bool CidExist(const string &cid) const;
         bool uidExist(const string &uid) const;
     } op;
     class ManagerOperation {
@@ -72,20 +76,22 @@ class Warehouse {
       public:
         ManagerOperation(Data *_data) : data(_data) { setManager(); }
         void setManager();
-        void addUser(const User &u) const;
-        void delPackage(const string &pid) const;
-        void delUser(const string &uid) const;
-        // void agrSend(const string &pid) const;
         int getWallet() const;
         bool mpasswdMatch(const string &s) { return m.mpasswdMatch(s); }
         void changeMPasswd(const string &s);
+
+        void addUser(const User &u) const;
+        void addCourier(const Courier &c) const;
+        void delPackage(const string &pid) const;
+        void delUser(const string &uid) const;
+        void delCourier(const string &cid) const;
+
         void schUser(const string &s) const;
+        void schCourier(const string &s) const;
         void schHistory(const string &s) const;
 
-        void collPackage(const string &pid, const string &cid) const;
-        void collPackage(const int &idx, const string &cid) const;
-        void distPackage(const string &pid, const string &cid) const;
-        void distPackage(const int &idx, const string &cid) const;
+        void reqColl(const string &hid, const string &cid) const;
+        void reqDist(const string &hid, const string &cid) const;
     } mop;
 
     class UserOperation {

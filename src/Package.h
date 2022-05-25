@@ -32,8 +32,7 @@ class BasePackage {
     bool canDel() const { return state == "已签收"; }
     bool match(const string &s) const;
     void print() const;
-    friend istream &operator>>(istream &in,
-                               BasePackage &bp); // TODO: 所有的流输入输出
+    friend istream &operator>>(istream &in, BasePackage &bp);
     friend ostream &operator<<(ostream &out, const BasePackage &bp);
 };
 

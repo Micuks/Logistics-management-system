@@ -11,43 +11,25 @@ void Courier::finColl(const BaseHistory &bh) {
     collectHis.add(bh);
 }
 
-void Courier::reqDist(const BaseHistory &bh) { distribHis.add(bh); }
-
-void Courier::finDist(const BaseHistory &bh) {
-    distribHis.del(bh.getHid());
-    distribHis.add(bh);
-}
-
 string Courier::schCollHis(const string &pid) {
     return collectHis.schPkgHis(pid);
 }
 
-string Courier::schDistHis(const string &pid) {
-    return distribHis.schPkgHis(pid);
-}
-
 int Courier::printCollHis() const { return collectHis.print(); }
-
-int Courier::printDistHis() const { return distribHis.print(); }
 
 string Courier::printCollHis(const int &idx) const {
     return collectHis.print(idx);
 }
 
-string Courier::printDistHis(const int &idx) const {
-    return distribHis.print(idx);
-}
-
 istream &operator>>(istream &in, Courier &c) {
-    in >> c.uid >> c.uname >> c.cpasswd >> c.wallet >> c.collectHis >>
-        c.distribHis;
+    in >> c.uid >> c.uname >> c.cpasswd >> c.wallet >> c.collectHis;
     return in;
 }
 
 ostream &operator<<(ostream &out, const Courier &c) {
     out << c.uid << " " << c.uname << " " << c.cpasswd << " " << c.wallet
         << endl
-        << c.collectHis << c.distribHis << endl;
+        << c.collectHis << endl;
     return out;
 }
 

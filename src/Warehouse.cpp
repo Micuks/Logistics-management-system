@@ -1,27 +1,23 @@
-#include <bits/stdc++.h>
-#include "History.h"
-#include "User.h"
-#include "Package.h"
-#include "Console.h"
 #include "Warehouse.h"
+#include "Console.h"
+#include "History.h"
+#include "Package.h"
+#include "User.h"
 #include "Utils.h"
+#include <bits/stdc++.h>
 using namespace std;
 
-//Warehouse::Operation
+// Warehouse::Operation
 void Warehouse::Operation::chargeMWallet(const int &val) {
     data->chargeMWallet(val);
 }
-int Warehouse::Operation::printPackage() const {
-    return data->pl.print();
-}
+int Warehouse::Operation::printPackage() const { return data->pl.print(); }
 
-int Warehouse::Operation::printUser() const {
-    return data->ul.print();
-}
+int Warehouse::Operation::printUser() const { return data->ul.print(); }
 
-int Warehouse::Operation::printHistory() const {
-    return data->hl.print();
-}
+int Warehouse::Operation::printCourier() const { return data->cl.print(); }
+
+int Warehouse::Operation::printHistory() const { return data->hl.print(); }
 
 string Warehouse::Operation::printPackage(const int &idx) const {
     return data->pl.print(idx);
@@ -29,6 +25,10 @@ string Warehouse::Operation::printPackage(const int &idx) const {
 
 string Warehouse::Operation::printUser(const int &idx) const {
     return data->ul.print(idx);
+}
+
+string Warehouse::Operation::printCourier(const int &idx) const {
+    return data->cl.print(idx);
 }
 
 string Warehouse::Operation::printHistory(const int &idx) const {
@@ -41,6 +41,10 @@ void Warehouse::Operation::printPackage(const string &pid) const {
 
 void Warehouse::Operation::printUser(const string &userid) const {
     data->ul.print(userid);
+}
+
+void Warehouse::Operation::printCourier(const string &cid) const {
+    data->cl.print(cid);
 }
 
 void Warehouse::Operation::printHistory(const string &hid) const {
@@ -57,4 +61,8 @@ bool Warehouse::Operation::pidExist(const string &pid) const {
 
 bool Warehouse::Operation::uidExist(const string &uid) const {
     return data->ul.uidExist(uid);
+}
+
+bool Warehouse::Operation::CidExist(const string &cid) const {
+    return data->cl.cidExist(cid);
 }

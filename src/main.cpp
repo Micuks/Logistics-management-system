@@ -9,6 +9,6 @@ Warehouse ware;
 Menu men(&ware);
 
 int main() {
-  men.start();
-  return 0;
+    men.start();
+    return 0;
 }

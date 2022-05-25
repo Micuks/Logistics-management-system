@@ -1,8 +1,8 @@
-#include <bits/stdc++.h>
 #include "Warehouse.h"
+#include <bits/stdc++.h>
 using namespace std;
 
-//WarehouseManager
+// WarehouseManager
 extern Console con;
 
 void Warehouse::ManagerOperation::setManager() {
@@ -10,18 +10,30 @@ void Warehouse::ManagerOperation::setManager() {
     con.inFile(mp, m);
 }
 
-int Warehouse::ManagerOperation::getWallet() const {
-    return m.getWallet();
+int Warehouse::ManagerOperation::getWallet() const { return m.getWallet(); }
+
+void Warehouse::ManagerOperation::changeMPasswd(const string &s) {
+    m.changeMpasswd(s);
+    con.outFile(mp, m);
 }
 
 void Warehouse::ManagerOperation::addUser(const User &u) const {
     string p = con.usrDir(u.getUid());
     con.mkDir(p);
-    p+=u.getUid();
+    p += u.getUid();
     con.outFile(p, u);
 
     data->ul.add(u.getBase());
     data->outUList();
+}
+
+void Warehouse::ManagerOperation::addCourier(const Courier &c) const {
+    string p = con.couDir(c.getUid());
+    con.mkDir(p);
+    p += c.getUid();
+    con.outFile(p, c);
+    data->cl.add(c.getBase());
+    data->outCList();
 }
 
 void Warehouse::ManagerOperation::delPackage(const string &pid) const {
@@ -38,15 +50,35 @@ void Warehouse::ManagerOperation::delUser(const string &uid) const {
     data->outUList();
 }
 
-void Warehouse::ManagerOperation::changeMPasswd(const string &s) {
-    m.changeMpasswd(s);
-    con.outFile(mp, m);
+void Warehouse::ManagerOperation::delCourier(const string &cid) const {
+    string p = con.couDir(cid);
+    con.rmDir(p);
+    data->cl.del(cid);
+    data->outCList();
 }
 
 void Warehouse::ManagerOperation::schUser(const string &s) const {
     data->ul.schUser(s);
 }
 
+void Warehouse::ManagerOperation::schCourier(const string &s) const {
+    data->cl.schCourier(s);
+}
+
 void Warehouse::ManagerOperation::schHistory(const string &s) const {
     data->hl.schHistory(s);
+}
+
+void Warehouse::ManagerOperation::reqColl(const string &hid,
+                                          const string &cid) const {
+    BaseHistory bh = data->hl[hid];
+    string cp = con.couDir(cid) + cid;
+    Courier c;
+    con.inFile(cp, c);
+
+    string pid = bh.getPid();
+    string pp = con.pacDir(pid) + pid;
+    Package p;
+    con.inFile(pp, p);
+    c.reqColl(bh);
 }
