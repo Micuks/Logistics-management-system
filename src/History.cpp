@@ -6,28 +6,30 @@ using namespace std;
 
 // History
 bool BaseHistory::match(const string &s) const {
-    return hid == s || pid == s || sid == s || rid == s || pname == s ||
-           sname == s || rname == s || state == s;
+    return hid == s || pid == s || sid == s || rid == s || cid == s ||
+           pname == s || sname == s || rname == s || cname == s || state == s;
 }
 
 void BaseHistory::print() const {
     cout << hid << " " << pid << " " << pname << " " << sid << " " << sname
          << " " << stime << " " << rid << " " << rname << " " << rtime << " "
-         << state << " " << fee << " " << quantity << " " << unit_price << endl;
+         << cid << " " << cname << " " << ctime << " " << state << " " << fee
+         << " " << quantity << " " << unit_price << endl;
 }
 
 istream &operator>>(istream &in, BaseHistory &bh) {
-    in >> bh.hid >> bh.pid >> bh.sid >> bh.rid >> bh.pname >> bh.sname >>
-        bh.rname >> bh.state >> bh.stime >> bh.rtime >> bh.fee >> bh.quantity >>
-        bh.unit_price;
+    in >> bh.hid >> bh.pid >> bh.sid >> bh.rid >> bh.cid >> bh.pname >>
+        bh.sname >> bh.rname >> bh.cname >> bh.state >> bh.stime >> bh.rtime >>
+        bh.ctime >> bh.fee >> bh.quantity >> bh.unit_price;
     return in;
 }
 
 ostream &operator<<(ostream &out, const BaseHistory &bh) {
     out << bh.hid << " " << bh.pid << " " << bh.sid << " " << bh.rid << " "
-        << bh.pname << " " << bh.sname << " " << bh.rname << " " << bh.state
-        << " " << bh.stime << " " << bh.rtime << " " << bh.fee << " "
-        << bh.quantity << " " << bh.unit_price << endl;
+        << bh.cid << " " << bh.pname << " " << bh.sname << " " << bh.rname
+        << " " << bh.cname << " " << bh.state << " " << bh.stime << " "
+        << bh.rtime << " " << bh.ctime << " " << bh.fee << " " << bh.quantity
+        << " " << bh.unit_price << endl;
     return out;
 }
 
@@ -44,11 +46,7 @@ void History::finSend() {
     rtime = t;
 }
 
-void History::reqRecv() {
-    string t = getTime();
-    state = "待揽收";
-    stime = t;
-}
+void History::reqRecv() {}
 
 void History::finRecv() {
     string t = getTime();
@@ -61,17 +59,18 @@ void History::reqColl() {}
 void History::finColl() { state = "待签收"; }
 
 istream &operator>>(istream &in, History &bh) {
-    in >> bh.hid >> bh.pid >> bh.sid >> bh.rid >> bh.pname >> bh.sname >>
-        bh.rname >> bh.state >> bh.stime >> bh.rtime >> bh.fee >> bh.quantity >>
-        bh.unit_price;
+    in >> bh.hid >> bh.pid >> bh.sid >> bh.rid >> bh.cid >> bh.pname >>
+        bh.sname >> bh.rname >> bh.cname >> bh.state >> bh.stime >> bh.rtime >>
+        bh.ctime >> bh.fee >> bh.quantity >> bh.unit_price;
     return in;
 }
 
 ostream &operator<<(ostream &out, const History &bh) {
     out << bh.hid << " " << bh.pid << " " << bh.sid << " " << bh.rid << " "
-        << bh.pname << " " << bh.sname << " " << bh.rname << " " << bh.state
-        << " " << bh.stime << " " << bh.rtime << " " << bh.fee << " "
-        << bh.quantity << " " << bh.unit_price << endl;
+        << bh.cid << " " << bh.pname << " " << bh.sname << " " << bh.rname
+        << " " << bh.cname << " " << bh.state << " " << bh.stime << " "
+        << bh.rtime << " " << bh.ctime << " " << bh.fee << " " << bh.quantity
+        << " " << bh.unit_price << endl;
     return out;
 }
 
@@ -113,7 +112,7 @@ void HistoryList::del(const string &hid) {
 
 int HistoryList::print() const {
     cout << "编号 历史记录id 包裹id 包裹名 寄方id 姓名 发送时间 收方id 姓名 "
-            "签收时间 包裹状态 运费 数量 单价"
+            "签收时间 快递员id 姓名 揽收时间 包裹状态 运费 数量 单价"
          << endl;
     for (int i = 0; i < hl.size(); i++) {
         cout << i + 1 << " ";
@@ -137,8 +136,8 @@ void HistoryList::print(const string &hid) const {
 }
 
 void HistoryList::schHistory(const string &s) const {
-    cout << "编号 历史记录id 包裹id 包裹名 寄件用户id 姓名 发送时间 收件用户id "
-            "姓名 签收时间 包裹状态 运费 数量 单价"
+    cout << "编号 历史记录id 包裹id 包裹名 寄方id 姓名 发送时间 收方id 姓名 "
+            "签收时间 快递员id 姓名 揽收时间 包裹状态 运费 数量 单价"
          << endl;
     int cnt = 0;
     for (int i = 0; i < hl.size(); i++) {

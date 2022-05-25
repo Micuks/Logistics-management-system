@@ -12,24 +12,44 @@ extern Console con;
 void Warehouse::UserOperation::initSRHis() { u.initSRHis(); }
 
 string Warehouse::UserOperation::addHistory(const string &pid,
-                                            const string &rid,
-                                            const int &fee) const {
+                                            const string &rid) const {
+    string pp = con.pacDir(pid) + pid;
+    Package p;
+    con.inFile(pp, p);
+
     string hid = data->getHis();
-    History h(hid, pid, uid, rid, data->pl[pid].getPname(),
-              data->ul[uid].getUname(), data->ul[rid].getUname());
-    string p = con.hisDir(hid);
-    con.mkDir(p);
-    p += hid;
-    con.outFile(p, h);
+    History h(hid, pid, uid, rid, "-1", data->pl[pid].getPname(),
+              data->ul[uid].getUname(), data->ul[rid].getUname(), "-1",
+              to_string(p.getPrice()), to_string(p.getQuantity()),
+              to_string(p.getUnitPrice()));
+
+    string hp = con.hisDir(hid);
+    con.mkDir(hp);
+    hp += hid;
+    con.outFile(hp, h);
     data->hl.add(h.getBase());
     data->outHList();
     return hid;
 }
 
-string Warehouse::UserOperation::addPackage(const string &pname,
+string Warehouse::UserOperation::addPackage(const string &ptype,
+                                            const string &pname,
+                                            const string &quantity,
                                             const string &description) const {
     string pid = data->getPkg();
-    BasePackage bp(pid, pname, "待揽收", description);
+    BasePackage bp;
+    if (ptype == "1") {
+        Package p(pid, pname, stod(quantity));
+        bp = p.getBase();
+    } else if (ptype == "2") {
+        Fragile f(pid, pname, stod(quantity));
+        bp = f.getBase();
+    } else if (ptype == "3") {
+        Book b(pid, pname, stod(quantity));
+        bp = b.getBase();
+    }
+    bp.calcFee();
+
     string p = con.pacDir(pid);
     con.mkDir(p);
     p += pid;
@@ -46,9 +66,47 @@ void Warehouse::UserOperation::setUser(const string &_uid) {
     con.inFile(up, u);
 }
 
-bool Warehouse::UserOperation::billPackage(const string &pid) {
-    BasePackage bp = data->pl[pid];
-    return u.billPackage(bp.getPrice());
+void Warehouse::UserOperation::billManager(const string &ptype,
+                                           const string &quantity) {
+    string mp = "data/manPasswd";
+    Manager m;
+    con.inFile(mp, m);
+
+    if (ptype == "3") {
+        Book b;
+        b.setQuantity(quantity);
+        m.chargeWallet(b.getPrice());
+    } else if (ptype == "2") {
+        Fragile p;
+        p.setQuantity(quantity);
+        m.chargeWallet(p.getPrice());
+    } else if (ptype == "1") {
+        Package p;
+        p.setQuantity(quantity);
+        m.chargeWallet(p.getPrice());
+    }
+
+    con.outFile(mp, m);
+}
+
+bool Warehouse::UserOperation::billPackage(const string &ptype,
+                                           const string &quantity) {
+    bool f = false;
+    if (ptype == "3") {
+        Book b;
+        b.setQuantity(quantity);
+        f = u.billPackage(b.getPrice());
+    } else if (ptype == "2") {
+        Fragile p;
+        p.setQuantity(quantity);
+        f = u.billPackage(p.getPrice());
+    } else if (ptype == "1") {
+        Package p;
+        p.setQuantity(quantity);
+        f = u.billPackage(p.getPrice());
+    }
+    con.outFile(up, u);
+    return f;
 }
 
 void Warehouse::UserOperation::addPackage(const Package &pkg) const {
@@ -67,9 +125,8 @@ void Warehouse::UserOperation::chargeWallet(const double &val) {
     con.outFile(up, u);
 }
 
-string Warehouse::UserOperation::reqSend(const string &pid, const string &rid,
-                                         const int &fee) {
-    string hid = addHistory(pid, rid, fee);
+string Warehouse::UserOperation::reqSend(const string &pid, const string &rid) {
+    string hid = addHistory(pid, rid);
     BaseHistory bh = data->hl[hid];
 
     string pp = con.pacDir(pid) + pid;

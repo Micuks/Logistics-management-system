@@ -84,5 +84,5 @@ void Warehouse::ManagerOperation::reqColl(const string &hid,
     c.reqColl(bh);
     con.outFile(cp, c);
 
-    data->outPList();
+    data->outCList();
 }

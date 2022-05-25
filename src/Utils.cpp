@@ -1,12 +1,13 @@
-#include <bits/stdc++.h>
 #include "Utils.h"
+#include <bits/stdc++.h>
 using namespace std;
 
 bool isPositive(const string &s) {
-    for(int i = 0; i < s.length(); i++) {
-        if(s[i] < '0' || s[i] > '9')
+    double e = 1e-5;
+    for (int i = 0; i < s.length(); i++) {
+        if (s[i] < '0' || s[i] > '9')
             return false;
-        if(stoi(s) == 0)
+        if (stod(s) < e)
             return false;
     }
     return true;
@@ -14,7 +15,7 @@ bool isPositive(const string &s) {
 
 void replace(string &s, const string &a, const string &b) {
     string::size_type pos = s.find(a);
-    while(pos != string::npos) {
+    while (pos != string::npos) {
         s.replace(pos, 1, b);
         pos = s.find(a);
     }

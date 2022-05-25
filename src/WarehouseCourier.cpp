@@ -9,6 +9,8 @@ void Warehouse::CourierOperation::setCourier(const string _cid) {
     string cp = con.couDir(cid) + cid;
     con.inFile(cp, c);
 }
+string Warehouse::CourierOperation::getCid() const { return cid; }
+double Warehouse::CourierOperation::getWallet() const { return c.getWallet(); }
 void Warehouse::CourierOperation::chargeWallet(const double &val) {
     c.chargeWallet(val);
     con.outFile(cp, c);
@@ -55,6 +57,28 @@ int Warehouse::CourierOperation::printCollHis() const {
 string Warehouse::CourierOperation::printCollHis(const int &idx) const {
     return c.printCollHis(idx);
 }
+string Warehouse::CourierOperation::schCollHis(const string &pid) const {
+    return c.schCollHis(pid);
+}
+
+void Warehouse::CourierOperation::takeManMoney(const string &hid) const {
+    string mp = "data/manPasswd";
+    Manager m;
+    con.inFile(mp, m);
+
+    double r = 0.5;
+    BaseHistory h = data->hl[hid];
+    m.chargeWallet(-stod(h.getFee()) * r);
+    con.outFile(mp, m);
+}
+void Warehouse::CourierOperation::billCourier(const string &hid) {
+    double r = 0.5;
+    BaseHistory h = data->hl[hid];
+    c.chargeWallet(stod(h.getFee()) * r);
+    con.outFile(cp, c);
+}
+
 void Warehouse::CourierOperation::changeCpasswd(const string &s) {
     c.changeCpasswd(s);
+    con.outFile(cp, c);
 }

@@ -20,9 +20,7 @@ class Warehouse {
         HistoryList recvReq;
         HistoryList collectHis;
         HistoryList distribHis;
-        Manager m0;
         Data() {
-            con.inFile("data/manPasswd", m0);
             con.inFile("data/packageList", pl);
             con.inFile("data/userList", ul);
             con.inFile("data/courierList", cl);
@@ -34,10 +32,6 @@ class Warehouse {
         string getPkg() const {
             return "P" + to_string(0000000000 + pl.size());
         }
-        void chargeMWallet(const int &val) {
-            m0.chargeWallet(val);
-            con.outFile("data/manPasswd", m0);
-        };
         void outPList() const { con.outFile("data/packageList", pl); }
         void outUList() const { con.outFile("data/userList", ul); }
         void outCList() const { con.outFile("data/courierList", cl); }
@@ -50,7 +44,6 @@ class Warehouse {
 
       public:
         Operation(Data *_data) : data(_data) {}
-        void chargeMWallet(const int &val);
         int printPackage() const;
         int printUser() const;
         int printCourier() const;
@@ -63,9 +56,11 @@ class Warehouse {
         void printUser(const string &uid) const;
         void printCourier(const string &uid) const;
         void printHistory(const string &hid) const;
+        void printToCollPkg() const;
         void schPackage(const string &s) const;
+        string schPkgHis(const string &pid) const;
         bool pidExist(const string &pid) const;
-        bool CidExist(const string &cid) const;
+        bool cidExist(const string &cid) const;
         bool uidExist(const string &uid) const;
     } op;
     class ManagerOperation {
@@ -77,6 +72,7 @@ class Warehouse {
         ManagerOperation(Data *_data) : data(_data) { setManager(); }
         void setManager();
         int getWallet() const;
+        void chargeMWallet(const int &val);
         bool mpasswdMatch(const string &s) { return m.mpasswdMatch(s); }
         void changeMPasswd(const string &s);
 
@@ -97,19 +93,21 @@ class Warehouse {
         Data *data;
         string uid, up;
         User u;
-        string addHistory(const string &pid, const string &rid,
-                          const int &fee) const; // 发送pid包裹并返回hid
+        string addHistory(const string &pid, const string &rid) const;
+
       public:
         void initSRHis();
         UserOperation(Data *_data) : data(_data) {}
+        void billManager(const string &ptype, const string &quantity);
+        bool billPackage(const string &ptype, const string &quantity);
         void setUser(const string &_uid);
-        string addPackage(const string &pname,
+        string addPackage(const string &ptype, const string &pname,
+                          const string &quantity,
                           const string &description = "none") const;
         void addPackage(const Package &p) const;
-        bool billPackage(const string &pid);
         int getWallet() const;
         void chargeWallet(const double &val);
-        string reqSend(const string &pid, const string &rid, const int &fee);
+        string reqSend(const string &pid, const string &rid);
         void finSend(const string &hid);
         void reqRecv(const string &hid);
         void finRecv(const string &hid);
@@ -129,6 +127,8 @@ class Warehouse {
 
       public:
         void initColHis();
+        string getCid() const;
+        double getWallet() const;
         CourierOperation(Data *_data) : data(_data){};
         void setCourier(const string _cid);
         void chargeWallet(const double &val);
@@ -136,6 +136,8 @@ class Warehouse {
         int printCollHis() const;
         string printCollHis(const int &idx) const;
         string schCollHis(const string &pid) const;
+        void takeManMoney(const string &hid) const;
+        void billCourier(const string &hid);
         bool cpasswdMatch(const string &s) const { return c.cpasswdMatch(s); }
         void changeCpasswd(const string &s);
     } cop;

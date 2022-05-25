@@ -127,6 +127,16 @@ void PackageList::print(const string &pid) const {
     }
 }
 
+void PackageList::printToCollPkg() const {
+    cout << "编号\t包裹id\t包裹名\t包裹状态\t寄件费用\t描述" << endl;
+    for (int i = 0; i < pl.size(); i++) {
+        if (pl[i].getState() == "待揽收") {
+            cout << i + 1 << "\t";
+            pl[i].print();
+        }
+    }
+}
+
 void PackageList::schPackage(const string &s) const {
     cout << "编号\t包裹id\t包裹名\t包裹状态\t寄件费用\t描述" << endl;
     for (int i = 0; i < pl.size(); i++) {

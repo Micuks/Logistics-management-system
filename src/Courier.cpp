@@ -11,24 +11,28 @@ void Courier::finColl(const BaseHistory &bh) {
     collectHis.add(bh);
 }
 
-string Courier::schCollHis(const string &pid) {
+string Courier::schCollHis(const string &pid) const {
     return collectHis.schPkgHis(pid);
 }
 
 int Courier::printCollHis() const { return collectHis.print(); }
+
+void Courier::print() const {
+    cout << uid << "\t" << uname << "\t" << tel << "\t" << wallet << endl;
+}
 
 string Courier::printCollHis(const int &idx) const {
     return collectHis.print(idx);
 }
 
 istream &operator>>(istream &in, Courier &c) {
-    in >> c.uid >> c.uname >> c.cpasswd >> c.wallet >> c.collectHis;
+    in >> c.uid >> c.uname >> c.cpasswd >> c.tel >> c.wallet >> c.collectHis;
     return in;
 }
 
 ostream &operator<<(ostream &out, const Courier &c) {
-    out << c.uid << " " << c.uname << " " << c.cpasswd << " " << c.wallet
-        << endl
+    out << c.uid << " " << c.uname << " " << c.cpasswd << " " << c.tel << " "
+        << c.wallet << endl
         << c.collectHis << endl;
     return out;
 }
@@ -80,7 +84,7 @@ void CourierList::print(const string &cid) const {
 }
 
 void CourierList::schCourier(const string &s) const {
-    cout << "编号\t快递员id\t快递员名\t" << endl;
+    cout << "编号\t快递员id\t快递员名\t电话\t余额" << endl;
     for (int i = 0; i < cl.size(); i++) {
         if (cl[i].match(s)) {
             cout << i + 1 << "\t";

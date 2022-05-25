@@ -8,9 +8,6 @@
 using namespace std;
 
 // Warehouse::Operation
-void Warehouse::Operation::chargeMWallet(const int &val) {
-    data->chargeMWallet(val);
-}
 int Warehouse::Operation::printPackage() const { return data->pl.print(); }
 
 int Warehouse::Operation::printUser() const { return data->ul.print(); }
@@ -51,6 +48,12 @@ void Warehouse::Operation::printHistory(const string &hid) const {
     data->hl.print(hid);
 }
 
+void Warehouse::Operation::printToCollPkg() const { data->hl.printToCollPkg(); }
+
+string Warehouse::Operation::schPkgHis(const string &pid) const {
+    return data->hl.schPkgHis(pid);
+}
+
 void Warehouse::Operation::schPackage(const string &s) const {
     data->pl.schPackage(s);
 }
@@ -63,6 +66,6 @@ bool Warehouse::Operation::uidExist(const string &uid) const {
     return data->ul.uidExist(uid);
 }
 
-bool Warehouse::Operation::CidExist(const string &cid) const {
+bool Warehouse::Operation::cidExist(const string &cid) const {
     return data->cl.cidExist(cid);
 }

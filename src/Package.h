@@ -23,6 +23,7 @@ class BasePackage {
     string getDescription() const { return description; }
     double getQuantity() const { return quantity; }
     double getUnitPrice() const { return unit_price; }
+    void setQuantity(const string _quantity) { quantity = stod(_quantity); }
     void calcFee() { fee = quantity * unit_price; }
     virtual double getPrice() {
         calcFee();
@@ -44,7 +45,7 @@ class Package : public BasePackage {
   public:
     // using BasePackage::BasePackage;
     Package() : BasePackage() { pacHis = HistoryList(); }
-    Package(string _pid, string _pname, double _quantity = 0.0,
+    Package(string _pid, string _pname, double _quantity,
             string _description = "无", string _state = "待揽收",
             double _unit_price = 5.0, double _fee = 0.0)
         : BasePackage(_pid, _pname, _state, _description, _fee, _quantity,
@@ -126,6 +127,7 @@ class PackageList {
     int print() const;
     string print(const int &idx) const;
     void print(const string &pid) const;
+    void printToCollPkg() const;
     void schPackage(const string &s) const;
     friend istream &operator>>(istream &in, PackageList &pl);
     friend ostream &operator<<(ostream &out, const PackageList &pl);
