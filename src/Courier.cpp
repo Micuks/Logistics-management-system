@@ -106,3 +106,22 @@ void CourierList::schCourier(const string &s) const {
         }
     }
 }
+
+istream &operator>>(istream &in, CourierList &cl) {
+    int num;
+    in >> num;
+    while (num--) {
+        BaseUser bu;
+        in >> bu;
+        cl.add(bu);
+    }
+    return in;
+}
+
+ostream &operator<<(ostream &out, const CourierList &cl) {
+    out << cl.size() << endl;
+    for (int i = 0; i < cl.size(); i++) {
+        out << cl.cl[i];
+    }
+    return out;
+}

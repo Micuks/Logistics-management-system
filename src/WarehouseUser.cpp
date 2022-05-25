@@ -27,7 +27,7 @@ string Warehouse::UserOperation::addHistory(const string &pid,
 string Warehouse::UserOperation::addPackage(const string &pname,
                                             const string &description) const {
     string pid = data->getPkg();
-    BasePackage bp(pid, pname, "待签收", description);
+    BasePackage bp(pid, pname, "待揽收", description);
     string p = con.pacDir(pid);
     con.mkDir(p);
     p += pid;

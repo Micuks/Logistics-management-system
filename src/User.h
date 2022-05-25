@@ -110,7 +110,7 @@ class Courier : public BaseUser {
         collectHis.clear();
         distribHis.clear();
     }
-    bool mpasswdMatch(const string &s) const { return cpasswd == s; }
+    bool cpasswdMatch(const string &s) const { return cpasswd == s; }
     void changeMpasswd(const string &s) { cpasswd = s; }
     void chargeWallet(const double &val) { wallet += val; }
     void reqColl(const BaseHistory &bh);
@@ -142,8 +142,8 @@ class CourierList {
     string print(const int &idx) const;
     void print(const string &cid) const;
     void schCourier(const string &s) const;
-    friend istream &operator>>(istream &in, CourierList &ul);
-    friend ostream &operator<<(ostream &out, const CourierList &ul);
+    friend istream &operator>>(istream &in, CourierList &cl);
+    friend ostream &operator<<(ostream &out, const CourierList &cl);
 };
 
 #endif
