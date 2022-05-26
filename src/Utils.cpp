@@ -4,6 +4,8 @@ using namespace std;
 
 bool isPositive(const string &s) {
     double e = 1e-5;
+    if(s.length() == 0)
+        return false;
     for (int i = 0; i < s.length(); i++) {
         if (s[i] < '0' || s[i] > '9')
             return false;

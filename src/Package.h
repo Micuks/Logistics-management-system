@@ -12,11 +12,11 @@ class BasePackage {
 
   public:
     BasePackage() {}
-    BasePackage(string _pid, string _pname, string _state = "待揽收",
-                string _description = "无", double _fee = 0.0,
-                double quantity = 1.0, double unit_price = 5.0)
-        : pid(_pid), pname(_pname), state(_state), description(_description),
-          fee(_fee) {}
+    BasePackage(string _pid, string _pname, double _quantity,
+                string _description = "无", string _state = "待揽收",
+                double _unit_price = 5.0, double _fee = 0.0)
+            : pid(_pid), pname(_pname), state(_state), description(_description),
+              fee(_fee), quantity(_quantity), unit_price(_unit_price) {}
     string getPid() const { return pid; }
     string getPname() const { return pname; }
     string getState() const { return state; }
@@ -44,17 +44,13 @@ class Package : public BasePackage {
 
   public:
     // using BasePackage::BasePackage;
-    Package() : BasePackage() { pacHis = HistoryList(); }
+    Package() : BasePackage() { unit_price = 5.0; quantity = 0; pacHis = HistoryList(); }
     Package(string _pid, string _pname, double _quantity,
             string _description = "无", string _state = "待揽收",
             double _unit_price = 5.0, double _fee = 0.0)
-        : BasePackage(_pid, _pname, _state, _description, _fee, _quantity,
-                      _unit_price) {
-        pacHis = HistoryList();
-    }
+            : BasePackage(_pid, _pname, _quantity, _description, _state, _unit_price, _fee) { pacHis = HistoryList(); }
     BasePackage getBase() const {
-        return BasePackage(pid, pname, state, description, fee, quantity,
-                           unit_price);
+        return BasePackage(pid, pname, quantity, description, state, unit_price, fee);
     }
     void calcFee() { fee = quantity * unit_price; }
     double getPrice() {

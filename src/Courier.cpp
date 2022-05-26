@@ -70,7 +70,7 @@ void CourierList::del(const string &cid) {
 }
 
 int CourierList::print() const {
-    cout << "编号\t快递员id\t快递员名\t电话\t余额" << endl;
+    cout << "编号\t快递员id\t快递员名\t余额" << endl;
     for (int i = 0; i < cl.size(); i++) {
         cout << i + 1 << "\t";
         cl[i].print();

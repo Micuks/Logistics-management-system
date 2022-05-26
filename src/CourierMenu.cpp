@@ -90,6 +90,8 @@ void Menu::CourierMenu::acceptPackage() const {
             else if ((hid = cop->schCollHis(pid)) == "-1")
                 cout << "pid为 " << pid << " 的包裹不在待揽收列表, 请重试"
                      << endl;
+            else if (!cop->isCollAble(hid))
+                cout << "包裹现在无法揽收, 请重试" << endl;
             else
                 break;
         }

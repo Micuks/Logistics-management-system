@@ -59,7 +59,11 @@ void History::reqColl(const string &_cid, const string &_cname) {
     cname = _cname;
 }
 
-void History::finColl() { state = "待签收"; }
+void History::finColl() {
+    string t = getTime();
+    state = "待签收";
+    ctime = t;
+}
 
 istream &operator>>(istream &in, History &bh) {
     in >> bh.hid >> bh.pid >> bh.sid >> bh.rid >> bh.cid >> bh.pname >>

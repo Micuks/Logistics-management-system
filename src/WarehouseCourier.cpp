@@ -6,7 +6,7 @@ using namespace std;
 void Warehouse::CourierOperation::initColHis() { c.initColHis(); }
 void Warehouse::CourierOperation::setCourier(const string _cid) {
     cid = _cid;
-    string cp = con.couDir(cid) + cid;
+    cp = con.couDir(cid) + cid;
     con.inFile(cp, c);
 }
 string Warehouse::CourierOperation::getCid() const { return cid; }
@@ -59,6 +59,16 @@ string Warehouse::CourierOperation::printCollHis(const int &idx) const {
 }
 string Warehouse::CourierOperation::schCollHis(const string &pid) const {
     return c.schCollHis(pid);
+}
+
+bool Warehouse::CourierOperation::isCollAble(const string &hid) const {
+    string hp = con.hisDir(hid) + hid;
+    History h;
+    con.inFile(hp, h);
+    if (h.getState() == "待揽收")
+        return true;
+    else
+        return false;
 }
 
 void Warehouse::CourierOperation::takeManMoney(const string &hid) const {

@@ -187,6 +187,8 @@ void Menu::UserMenu::recvPackage() const {
                 cout << "包裹pid格式错误, 请重新输入" << endl;
             else if ((hid = uop->schRecvHis(pid)) == "-1")
                 cout << "pid为 " << pid << " 的包裹不存在, 请重试" << endl;
+            else if (!uop->isRecvAble(hid))
+                cout << "该包裹现在不能签收, 请重试" << endl;
             else
                 break;
         }

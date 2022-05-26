@@ -95,15 +95,20 @@ bool Warehouse::UserOperation::billPackage(const string &ptype,
     if (ptype == "3") {
         Book b;
         b.setQuantity(quantity);
+        b.calcFee();
         f = u.billPackage(b.getPrice());
     } else if (ptype == "2") {
         Fragile p;
         p.setQuantity(quantity);
+        p.calcFee();
         f = u.billPackage(p.getPrice());
     } else if (ptype == "1") {
         Package p;
         p.setQuantity(quantity);
+        p.calcFee();
         f = u.billPackage(p.getPrice());
+    } else {
+        cout << "ptype不正确, 为" << ptype << endl;
     }
     con.outFile(up, u);
     return f;
@@ -123,6 +128,16 @@ int Warehouse::UserOperation::getWallet() const { return u.getWallet(); }
 void Warehouse::UserOperation::chargeWallet(const double &val) {
     u.chargeWallet(val);
     con.outFile(up, u);
+}
+
+bool Warehouse::UserOperation::isRecvAble(const string &hid) const {
+    string hp = con.hisDir(hid) + hid;
+    History h;
+    con.inFile(hp, h);
+    if (h.getCid() == "-1")
+        return false;
+    else
+        return true;
 }
 
 string Warehouse::UserOperation::reqSend(const string &pid, const string &rid) {

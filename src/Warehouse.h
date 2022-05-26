@@ -107,6 +107,7 @@ class Warehouse {
         void addPackage(const Package &p) const;
         int getWallet() const;
         void chargeWallet(const double &val);
+        bool isRecvAble(const string &hid) const;
         string reqSend(const string &pid, const string &rid);
         void finSend(const string &hid);
         void reqRecv(const string &hid);
@@ -140,6 +141,7 @@ class Warehouse {
         void billCourier(const string &hid);
         bool cpasswdMatch(const string &s) const { return c.cpasswdMatch(s); }
         void changeCpasswd(const string &s);
+        bool isCollAble(const string &hid) const;
     } cop;
     Warehouse()
         : op(Operation(&data)), mop(ManagerOperation(&data)),
