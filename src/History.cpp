@@ -98,16 +98,6 @@ BaseHistory &HistoryList::operator[](const int &num) {
 
 void HistoryList::add(const BaseHistory &bh) { hl.push_back(bh); }
 
-void HistoryList::del(const BaseHistory &bh) {
-    // del(bh.getHid()); // ***
-    for (int i = 0; i < hl.size(); i++) {
-        if (hl[i].getHid() == bh.getHid()) {
-            hl.erase(hl.begin() + i);
-            return;
-        }
-    }
-}
-
 void HistoryList::del(const string &hid) {
     for (int i = 0; i < hl.size(); i++) {
         if (hl[i].getHid() == hid) {
@@ -115,6 +105,10 @@ void HistoryList::del(const string &hid) {
             return;
         }
     }
+}
+
+void HistoryList::del(const BaseHistory &bh) {
+    del(bh.getHid()); // ***
 }
 
 int HistoryList::print() const {

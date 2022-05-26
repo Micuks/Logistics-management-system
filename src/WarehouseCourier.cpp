@@ -29,15 +29,29 @@ void Warehouse::CourierOperation::finColl(const string &hid) {
     History h;
     con.inFile(hp, h);
 
+    string sid, rid, sp, rp;
+    sid = h.getSid();
+    rid = h.getRid();
+    sp = con.usrDir(sid) + sid;
+    rp = con.usrDir(rid) + rid;
+    User s, r;
+    con.inFile(sp, s);
+    con.inFile(rp, r);
+
     h.finColl();
     con.outFile(hp, h);
     bh = h.getBase();
 
-    p.finColl(bh);
+    p.finColl(bh); // 32767行异常his
     con.outFile(pp, p);
 
     c.finColl(bh);
     con.outFile(cp, c);
+
+    s.finSendColl(bh);
+    con.outFile(sp, s);
+    r.finRecvColl(bh);
+    con.outFile(rp, r);
 
     data->hl.del(hid);
     data->hl.add(bh);

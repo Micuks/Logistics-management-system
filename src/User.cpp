@@ -45,6 +45,16 @@ void User::finRecv(const BaseHistory &bh) {
     recvHis.add(bh);
 }
 
+void User::finSendColl(const BaseHistory &bh) {
+    sendHis.del(bh.getHid());
+    sendHis.add(bh);
+}
+
+void User::finRecvColl(const BaseHistory &bh) {
+    recvHis.del(bh.getHid());
+    recvHis.add(bh);
+}
+
 string User::schSendHis(const string &pid) { return sendHis.schPkgHis(pid); }
 
 string User::schRecvHis(const string &pid) { return recvHis.schPkgHis(pid); }

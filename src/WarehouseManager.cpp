@@ -84,15 +84,9 @@ void Warehouse::ManagerOperation::reqColl(const string &hid,
     bh = h.getBase();
 
     string pid = bh.getPid();
-    string pp = con.pacDir(pid) + pid;
-    Package p;
-    con.inFile(pp, p);
 
     h.reqColl(cid, cname);
     con.outFile(hp, h);
-
-    p.reqColl(bh);
-    con.outFile(pp, p);
 
     c.reqColl(bh);
     con.outFile(cp, c);
@@ -100,10 +94,6 @@ void Warehouse::ManagerOperation::reqColl(const string &hid,
     data->hl.del(hid);
     data->hl.add(h.getBase());
     data->outHList();
-
-    data->pl.del(pid);
-    data->pl.add(p.getBase());
-    data->outPList();
 
     data->cl.del(cid);
     data->cl.add(c.getBase());

@@ -48,6 +48,8 @@ class User : public BaseUser {
     void finSend(const BaseHistory &bh);
     void reqRecv(const BaseHistory &bh);
     void finRecv(const BaseHistory &bh);
+    void finSendColl(const BaseHistory &bh);
+    void finRecvColl(const BaseHistory &bh);
     string schSendHis(const string &pid);
     string schRecvHis(const string &pid);
     int printSendHis() const;

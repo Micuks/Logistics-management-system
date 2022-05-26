@@ -7,8 +7,8 @@ using namespace std;
 void Courier::reqColl(const BaseHistory &bh) { collectHis.add(bh); }
 
 void Courier::finColl(const BaseHistory &bh) {
-    collectHis.del(bh.getHid());
-    collectHis.add(bh);
+    this->collectHis.del(bh.getHid());
+    this->collectHis.add(bh);
 }
 
 string Courier::schCollHis(const string &pid) const {
