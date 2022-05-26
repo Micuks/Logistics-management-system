@@ -72,17 +72,40 @@ void Warehouse::ManagerOperation::schHistory(const string &s) const {
 void Warehouse::ManagerOperation::reqColl(const string &hid,
                                           const string &cid) const {
     BaseHistory bh = data->hl[hid];
+
     string cp = con.couDir(cid) + cid;
     Courier c;
     con.inFile(cp, c);
+    string cname = c.getUname();
 
     string hp = con.hisDir(hid) + hid;
     History h;
     con.inFile(hp, h);
     bh = h.getBase();
 
+    string pid = bh.getPid();
+    string pp = con.pacDir(pid) + pid;
+    Package p;
+    con.inFile(pp, p);
+
+    h.reqColl(cid, cname);
+    con.outFile(hp, h);
+
+    p.reqColl(bh);
+    con.outFile(pp, p);
+
     c.reqColl(bh);
     con.outFile(cp, c);
 
+    data->hl.del(hid);
+    data->hl.add(h.getBase());
+    data->outHList();
+
+    data->pl.del(pid);
+    data->pl.add(p.getBase());
+    data->outPList();
+
+    data->cl.del(cid);
+    data->cl.add(c.getBase());
     data->outCList();
 }

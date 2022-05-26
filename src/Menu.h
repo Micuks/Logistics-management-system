@@ -75,7 +75,8 @@ class Menu {
   public:
     UserMenu um;
     ManagerMenu mm;
-    Menu(Warehouse *_wh) : wh(_wh), um(_wh), mm(_wh) {}
+    CourierMenu cm;
+    Menu(Warehouse *_wh) : wh(_wh), um(_wh), mm(_wh), cm(_wh) {}
     void start() const;
 };
 

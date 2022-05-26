@@ -64,7 +64,7 @@ class History : public BaseHistory {
     void reqRecv();
     void finSend();
     void finRecv();
-    void reqColl();
+    void reqColl(const string &_cid, const string &_cname);
     void finColl();
     friend istream &operator>>(istream &in, History &h);
     friend ostream &operator<<(ostream &out, const History &h);

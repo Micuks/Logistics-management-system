@@ -114,6 +114,16 @@ void Menu::UserMenu::sendPackage() const {
                     break;
                 cout << "输入内容错误, 请重新输入" << endl;
             }
+        } else {
+            while (true) {
+                cout << "请输入重量(kg, 输入-1返回上级菜单)" << endl;
+                getline(cin, quantity);
+                if (quantity == "-1")
+                    return;
+                else if (isPositive(quantity))
+                    break;
+                cout << "输入内容错误, 请重新输入" << endl;
+            }
         }
 
         if (!uop->billPackage(ptype, quantity)) {

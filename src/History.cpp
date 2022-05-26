@@ -54,7 +54,10 @@ void History::finRecv() {
     rtime = t;
 }
 
-void History::reqColl() {}
+void History::reqColl(const string &_cid, const string &_cname) {
+    cid = _cid;
+    cname = _cname;
+}
 
 void History::finColl() { state = "待签收"; }
 
@@ -131,6 +134,19 @@ void HistoryList::print(const string &hid) const {
         if (hl[i].getHid() == hid) {
             hl[i].print();
             return;
+        }
+    }
+}
+
+void HistoryList::printToCollPkg() const {
+    cout << "编号 历史记录id 包裹id 包裹名 寄方id 姓名 发送时间 收方id 姓名 "
+            "签收时间 快递员id 姓名 揽收时间 包裹状态 运费 数量 单价"
+         << endl;
+    int cnt = 0;
+    for (int i = 0; i < hl.size(); i++) {
+        if (hl[i].getCid() == "-1") {
+            cout << ++cnt << " ";
+            hl[i].print();
         }
     }
 }

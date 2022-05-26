@@ -67,6 +67,13 @@ void Menu::CourierMenu::start() const {
             return;
     }
 }
+void Menu::CourierMenu::printColHis() const {
+    cop->printCollHis();
+    cout << "输入任意字符返回" << endl;
+    string s;
+    getline(cin, s);
+    return;
+}
 
 void Menu::CourierMenu::acceptPackage() const {
     while (true) {

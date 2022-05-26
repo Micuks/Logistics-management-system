@@ -29,18 +29,23 @@ void Menu::ManagerMenu::start() const {
         cout << "1. 查看所有用户" << endl
              << "2. 查看所有包裹" << endl
              << "3. 查看所有历史记录" << endl
-             << "4. 查找用户" << endl
-             << "5. 查找包裹" << endl
-             << "6. 查找历史记录" << endl
-             << "7. 添加用户" << endl
-             << "8. 删除用户" << endl
-             << "9. 修改密码" << endl
-             << "10. 返回上级菜单" << endl
-             << "11. 退出系统" << endl;
+             << "4. 查看所有快递员" << endl
+             << "5. 查找用户" << endl
+             << "6. 查找包裹" << endl
+             << "7. 查找历史记录" << endl
+             << "8. 查找快递员" << endl
+             << "9. 分发快递" << endl
+             << "10. 添加用户" << endl
+             << "11. 删除用户" << endl
+             << "12. 添加快递员" << endl
+             << "13. 删除快递员" << endl
+             << "14. 修改密码" << endl
+             << "15. 返回上级菜单" << endl
+             << "16. 退出系统" << endl;
         string s;
         while (true) {
             getline(cin, s);
-            if (isPositive(s) && stoi(s) <= 11)
+            if (isPositive(s) && stoi(s) <= 16)
                 break;
             cout << "输入内容错误, 请重新输入" << endl;
         }
@@ -51,18 +56,28 @@ void Menu::ManagerMenu::start() const {
         else if (s == "3")
             printHistory();
         else if (s == "4")
-            schUser();
+            printCourier();
         else if (s == "5")
-            schPackage();
+            schUser();
         else if (s == "6")
-            schHistory();
+            schPackage();
         else if (s == "7")
-            addUser();
+            schHistory();
         else if (s == "8")
-            delUser();
+            schCourier();
         else if (s == "9")
-            changeMPasswd();
+            collectPackage();
         else if (s == "10")
+            addUser();
+        else if (s == "11")
+            delUser();
+        else if (s == "12")
+            addCourier();
+        else if (s == "13")
+            delCourier();
+        else if (s == "14")
+            changeMPasswd();
+        else if (s == "15")
             return;
         else
             exit(0);
