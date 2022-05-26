@@ -17,8 +17,6 @@ void Warehouse::CourierOperation::chargeWallet(const double &val) {
 }
 void Warehouse::CourierOperation::finColl(const string &hid) {
     BaseHistory bh = data->hl[hid];
-    Courier c;
-    con.inFile(cp, c);
 
     string pid = bh.getPid();
     string pp = con.pacDir(pid) + pid;
