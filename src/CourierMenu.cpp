@@ -23,7 +23,7 @@ void Menu::CourierMenu::login() const {
         while (true) {
             cout << "请输入密码(输入-1返回上级菜单)" << endl;
             getline(cin, cpasswd);
-            if (cid == "-1")
+            if (cpasswd == "-1")
                 return;
             if (cop->cpasswdMatch(cpasswd))
                 break;
