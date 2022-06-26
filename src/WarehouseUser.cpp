@@ -67,35 +67,44 @@ void Warehouse::UserOperation::chargeWallet(const int &val) {
 
 string Warehouse::UserOperation::reqSend(const string &pid, const string &rid,
                                        const int &fee) {
+    // 新建包裹历史记录
     string hid = addHistory(pid, rid, fee);
     BaseHistory bh = data->hl[hid];
     
+    // 读取包裹
     string pp = con.pacDir(pid)+pid;
     Package p;
     con.inFile(pp, p);
 
+    // 读取历史记录
     string hp = con.hisDir(hid)+hid;
     History h;
     con.inFile(hp, h);
 
+    // 写入发送历史记录
     h.reqSend();
     con.outFile(hp, h);
     bh = h.getBase();
 
+    // 写入包裹发送记录
     p.reqSend(bh);
     con.outFile(pp, p);
 
+    // 写入发送方历史记录
     u.reqSend(bh);
     con.outFile(up, u);
     
+    // 更新历史记录列表
     data->hl.del(hid);
     data->hl.add(bh);
     data->outHList();
 
+    // 更新包裹列表
     data->pl.del(pid);
     data->pl.add(p.getBase());
     data->outPList();
     
+    // 更新用户列表
     data->ul.del(uid);
     data->ul.add(u.getBase());
     data->outUList();
@@ -104,6 +113,7 @@ string Warehouse::UserOperation::reqSend(const string &pid, const string &rid,
 }
 
 void Warehouse::UserOperation::reqRecv(const string &hid) {
+    // 获取BaseHistory
     BaseHistory bh = data->hl[hid];
 
     string pid = bh.getPid();
